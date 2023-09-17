@@ -1,0 +1,178 @@
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\appsettings.Development.json
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\appsettings.json
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Przychodnia.exe
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Przychodnia.deps.json
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Przychodnia.runtimeconfig.json
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Przychodnia.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Przychodnia.pdb
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.OpenApi.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\Przychodnia.csproj.AssemblyReference.cache
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\Przychodnia.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\Przychodnia.AssemblyInfoInputs.cache
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\Przychodnia.AssemblyInfo.cs
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\Przychodnia.csproj.CoreCompileInputs.cache
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\Przychodnia.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\Przychodnia.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\staticwebassets\msbuild.Przychodnia.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\staticwebassets\msbuild.build.Przychodnia.props
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.Przychodnia.props
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.Przychodnia.props
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\staticwebassets.pack.json
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\staticwebassets.build.json
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\staticwebassets.development.json
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\scopedcss\bundle\Przychodnia.styles.css
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\Przychodnia.csproj.CopyComplete
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\Przychodnia.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\refint\Przychodnia.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\Przychodnia.pdb
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\Przychodnia.genruntimeconfig.cache
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\ref\Przychodnia.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Azure.Core.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Azure.Identity.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Humanizer.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.Extensions.Logging.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.Identity.Client.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.SqlServer.Server.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Mono.TextTemplating.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\System.CodeDom.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\System.Drawing.Common.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\System.Memory.Data.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\System.Runtime.Caching.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\System.Security.Permissions.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\System.Text.Encodings.Web.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\System.Text.Json.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\System.Windows.Extensions.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\kamil\source\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\appsettings.Development.json
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\appsettings.json
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Przychodnia.exe
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\AutoMapper.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Azure.Core.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Azure.Identity.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Humanizer.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.Extensions.Caching.Abstractions.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.Extensions.Logging.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.Identity.Client.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.Identity.Client.Extensions.Msal.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.OpenApi.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.SqlServer.Server.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Mono.TextTemplating.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\System.CodeDom.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\System.Drawing.Common.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\System.Memory.Data.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\System.Runtime.Caching.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\System.Security.Permissions.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\System.Text.Encodings.Web.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\System.Text.Json.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\System.Windows.Extensions.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\Przychodnia.csproj.AssemblyReference.cache
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\Przychodnia.GeneratedMSBuildEditorConfig.editorconfig
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\Przychodnia.AssemblyInfoInputs.cache
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\Przychodnia.AssemblyInfo.cs
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\Przychodnia.csproj.CoreCompileInputs.cache
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\Przychodnia.MvcApplicationPartsAssemblyInfo.cs
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\Przychodnia.MvcApplicationPartsAssemblyInfo.cache
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\staticwebassets\msbuild.Przychodnia.Microsoft.AspNetCore.StaticWebAssets.props
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\staticwebassets\msbuild.build.Przychodnia.props
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.Przychodnia.props
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.Przychodnia.props
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\staticwebassets.pack.json
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\staticwebassets.build.json
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\staticwebassets.development.json
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\scopedcss\bundle\Przychodnia.styles.css
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\Przychodnia.csproj.CopyComplete
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\Przychodnia.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\refint\Przychodnia.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\Przychodnia.pdb
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Przychodnia.deps.json
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Przychodnia.runtimeconfig.json
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Przychodnia.dll
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\bin\Debug\net6.0\Przychodnia.pdb
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\Przychodnia.genruntimeconfig.cache
+H:\format 28.06.2023\repos\Przychodnia\Przychodnia\obj\Debug\net6.0\ref\Przychodnia.dll

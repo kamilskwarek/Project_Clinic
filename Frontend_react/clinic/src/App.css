@@ -1,0 +1,146 @@
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  margin: auto;
+}
+
+.app-container {
+  display: flex;
+  width: 100%;
+
+  flex-direction: column;
+  height: 100vh; 
+}
+
+.navbar {
+  background-color: #006a6a;
+  color: #fff;
+  padding: 10px;
+  text-align: center; 
+}
+
+.content-container {
+  display: flex;
+  flex: 1; 
+}
+
+.menu {
+  width: 5%;
+  background-color: rgba(0, 114, 114, 0.336);
+
+
+  padding: 10px;
+  min-width: 250px; 
+}
+
+.menu ul {
+  list-style: none;
+  
+  padding: 0;
+}
+
+.menu li {
+  cursor: pointer;
+  background-color: #006a6a;
+  padding: 8px 16px;
+  color: white;
+  border-radius: 10px;
+  margin-bottom: 5px;
+}
+
+.menu li:hover {
+  background-color: #006a6aad;
+}
+
+.main-content {
+  padding: 20px;
+  flex: 1;
+
+  background-color: #006a6a0c;
+}
+
+
+
+.EmployeeAddForm ul{
+  list-style: none;
+  padding: 0; 
+
+}
+
+
+.EmployeeAddForm Input{
+  border: none;
+  border-bottom: 2px solid rgb(185, 185, 185);
+  margin-bottom: 10px;
+ 
+}
+
+.EmployeeAddForm Input:focus{
+  border: none;
+  outline-width: 0;
+  border-bottom: 2px solid #006a6a;
+  transition: 0.5s;
+}
+
+.EmployeeList {
+  width: 100%;
+  font-size: 20px;
+}
+
+.EmployeeList ul{
+  list-style: none;
+  padding: 0; 
+}
+.EmployeeList li{
+  border-bottom: 2px solid grey;
+  border-left: 2px solid grey;
+
+
+}
+
+
+
+.EmployeeList p{
+  display: table-cell;
+  min-width: 125px;
+  padding: 5px; 
+  border-right: 2px solid grey ;
+
+}
+
+.EmployeeList button{
+  border:  1px solid #006a6a;
+  border-radius: 7px;
+  font-size: 20px;
+}
+
+
+.idParagraph{
+  width: 20px !important;
+  min-width: 20px !important;
+
+}
+
+.mainLi{
+  border-bottom: 2px solid #006a6a !important;
+  border-top: 2px solid #006a6a !important;
+  border-left: 2px solid #006a6a !important;
+  background-color: #006a6ace;
+  color: white;
+}
+
+
+
+.mainLi p {
+  border-right: 2px solid #006a6a ;
+
+}
+
+.buttonParagraph{
+  text-align: center;
+  border-right: none !important;
+}
+
