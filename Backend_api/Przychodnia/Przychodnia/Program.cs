@@ -20,6 +20,7 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<IClinicService, ClinicService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IPatientService, PatientService>();
+builder.Services.AddScoped<IJobPositionService, JobPositionService>();
 
 
 var app = builder.Build();

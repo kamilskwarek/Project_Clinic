@@ -54,7 +54,7 @@ const EmployeeAddForm = ({ addEmployeeHandler, editEmployeeHandler, employeeToEd
     
     <form className="EmployeeAddForm" onSubmit={handleSubmit}>
         <ul>
-      <li>Formularz pracownika</li>
+      <li><h3>Formularz pracownika</h3></li>
       <br></br>
       <li>
         <label>Imię:</label>
@@ -95,6 +95,7 @@ const EmployeeAddForm = ({ addEmployeeHandler, editEmployeeHandler, employeeToEd
         </li>
       </ul>
       <button type="submit">{employeeToEdit ? "Aktualizuj pracownika" : "Dodaj pracownika"}</button>
+    
     </form>
 
   );

@@ -5,7 +5,7 @@ using Przychodnia.Models.Patient;
 
 namespace Przychodnia.Controllers
 {
-    [Route("api/Patient")]
+    [Route("api/patient")]
     public class PatientController : ControllerBase
     {
         private readonly IPatientService _patientService;

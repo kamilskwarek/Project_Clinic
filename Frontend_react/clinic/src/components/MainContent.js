@@ -20,6 +20,12 @@ const MainContent = ({
     }
   }, [activeMenuItem]);
 
+  useEffect(() => {
+    if (!isFormVisible) {
+      setEmployeeToEdit(null);
+    }
+  }, [isFormVisible]);
+
   const loadEmployees = async () => {
     try {
       const response = await fetch('https://localhost:7137/api/employee');

@@ -33,7 +33,7 @@ body {
 
 
   padding: 10px;
-  min-width: 250px; 
+  min-width: 15%; 
 }
 
 .menu ul {
@@ -60,6 +60,7 @@ body {
   flex: 1;
 
   background-color: #006a6a0c;
+  width: 85%;
 }
 
 
@@ -86,13 +87,13 @@ body {
 }
 
 .EmployeeList {
-  width: 100%;
+  width: fit-content;
   font-size: 20px;
 }
 
 .EmployeeList ul{
   list-style: none;
-  padding: 0; 
+  padding: 0;
 }
 .EmployeeList li{
   border-bottom: 2px solid grey;
@@ -105,16 +106,18 @@ body {
 
 .EmployeeList p{
   display: table-cell;
-  min-width: 125px;
+  min-width: fit-content;
   padding: 5px; 
   border-right: 2px solid grey ;
-
+ 
+  word-wrap:normal;
 }
 
 .EmployeeList button{
   border:  1px solid #006a6a;
   border-radius: 7px;
   font-size: 20px;
+
 }
 
 
@@ -141,6 +144,7 @@ body {
 
 .buttonParagraph{
   text-align: center;
-  border-right: none !important;
+  /* border-right: none !important; */
+  vertical-align: middle;
 }
 

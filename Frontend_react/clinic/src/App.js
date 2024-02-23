@@ -78,7 +78,7 @@ const App = () => {
       }
   
       const responseData = await response.json();
-      console.log('Zedytowano pracownika:', responseData);
+      console.log('Edytowano pracownika:', responseData);
      
   
     } catch (error) {
