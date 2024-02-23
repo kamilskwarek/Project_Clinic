@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "GgHF5teL5PlWk7D7BrD4RSM5qxBvGklRVgl+VgHUBEdQeBQul5wWdMAbJwzPLciOw6SlRfwTtUdv1/+qcEvmaw==",
+  "dgSpecHash": "aYNv0dokyHTFKV1uqe7R4HedAbTn0D/9cMpaD7jiz6RppdOcurMN8fRDQ2Z2ze8wivPK9wHoK9iuhXJQgCogwg==",
   "success": true,
-  "projectFilePath": "H:\\format 28.06.2023\\repos\\Przychodnia\\Przychodnia\\Przychodnia.csproj",
+  "projectFilePath": "D:\\Project_Clinic\\Backend_api\\Przychodnia\\Przychodnia\\Przychodnia.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kamil\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\kamil\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

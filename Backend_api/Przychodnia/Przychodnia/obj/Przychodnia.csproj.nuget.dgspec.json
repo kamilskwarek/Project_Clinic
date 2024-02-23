@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "H:\\format 28.06.2023\\repos\\Przychodnia\\Przychodnia\\Przychodnia.csproj": {}
+    "D:\\Project_Clinic\\Backend_api\\Przychodnia\\Przychodnia\\Przychodnia.csproj": {}
   },
   "projects": {
-    "H:\\format 28.06.2023\\repos\\Przychodnia\\Przychodnia\\Przychodnia.csproj": {
+    "D:\\Project_Clinic\\Backend_api\\Przychodnia\\Przychodnia\\Przychodnia.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "H:\\format 28.06.2023\\repos\\Przychodnia\\Przychodnia\\Przychodnia.csproj",
+        "projectUniqueName": "D:\\Project_Clinic\\Backend_api\\Przychodnia\\Przychodnia\\Przychodnia.csproj",
         "projectName": "Przychodnia",
-        "projectPath": "H:\\format 28.06.2023\\repos\\Przychodnia\\Przychodnia\\Przychodnia.csproj",
+        "projectPath": "D:\\Project_Clinic\\Backend_api\\Przychodnia\\Przychodnia\\Przychodnia.csproj",
         "packagesPath": "C:\\Users\\kamil\\.nuget\\packages\\",
-        "outputPath": "H:\\format 28.06.2023\\repos\\Przychodnia\\Przychodnia\\obj\\",
+        "outputPath": "D:\\Project_Clinic\\Backend_api\\Przychodnia\\Przychodnia\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
