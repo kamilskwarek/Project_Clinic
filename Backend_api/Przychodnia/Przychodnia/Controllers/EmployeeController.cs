@@ -27,7 +27,7 @@ namespace Przychodnia.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateEmployee([FromBody]CreateEmployeeDto dto)
+        public ActionResult Create([FromBody]CreateEmployeeDto dto)
         {
             if (!ModelState.IsValid)
             {

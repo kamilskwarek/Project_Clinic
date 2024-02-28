@@ -15,7 +15,7 @@ namespace Przychodnia.Entities
         public DbSet<SickLeave> SickLeave { get; set; }
         public DbSet<TreatmentHistory> TreatmentHistory { get; set; }
         public DbSet<Vaccinations> Vaccinations { get; set; }
-        public DbSet<Visit> visits { get; set; }
+        public DbSet<Visit> Visits { get; set; }
 
 
 
@@ -270,8 +270,15 @@ namespace Przychodnia.Entities
                 .Property(p => p.VisitDate)
                 .IsRequired();
             modelBuilder.Entity<Visit>()
-                .Property(p => p.VisitTime) 
+                .Property(p => p.StartTime) 
                 .IsRequired();
+            modelBuilder.Entity<Visit>()
+                .Property(p => p.EndTime)
+                .IsRequired();
+            modelBuilder.Entity<Visit>()
+                .Property(p => p.Notes)
+                .HasMaxLength(500);
+
 
 
             //relacje MedicalPrescriptionMedicines

@@ -21,6 +21,7 @@ builder.Services.AddScoped<IClinicService, ClinicService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddScoped<IJobPositionService, JobPositionService>();
+builder.Services.AddScoped<IVisitService, VisitService>();
 
 
 var app = builder.Build();

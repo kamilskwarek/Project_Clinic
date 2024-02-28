@@ -12,8 +12,8 @@ using Przychodnia.Entities;
 namespace Przychodnia.Migrations
 {
     [DbContext(typeof(ClinicDbContext))]
-    [Migration("20240223151318_initDataBase")]
-    partial class initDataBase
+    [Migration("20240228165931_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -438,14 +438,22 @@ namespace Przychodnia.Migrations
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
+                    b.Property<TimeSpan>("EndTime")
+                        .HasColumnType("time");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
                     b.Property<int>("PatientId")
                         .HasColumnType("int");
 
+                    b.Property<TimeSpan>("StartTime")
+                        .HasColumnType("time");
+
                     b.Property<DateTime>("VisitDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<TimeSpan>("VisitTime")
-                        .HasColumnType("time");
 
                     b.HasKey("Id");
 
@@ -453,7 +461,7 @@ namespace Przychodnia.Migrations
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("visits");
+                    b.ToTable("Visits");
                 });
 
             modelBuilder.Entity("Przychodnia.Entities.Employee", b =>

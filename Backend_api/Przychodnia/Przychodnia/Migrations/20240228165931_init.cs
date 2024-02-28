@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Przychodnia.Migrations
 {
     /// <inheritdoc />
-    public partial class initDataBase : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -172,27 +172,29 @@ namespace Przychodnia.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "visits",
+                name: "Visits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     VisitDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    VisitTime = table.Column<TimeSpan>(type: "time", nullable: false),
+                    StartTime = table.Column<TimeSpan>(type: "time", nullable: false),
+                    EndTime = table.Column<TimeSpan>(type: "time", nullable: false),
+                    Notes = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     EmployeeId = table.Column<int>(type: "int", nullable: false),
                     PatientId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_visits", x => x.Id);
+                    table.PrimaryKey("PK_Visits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_visits_Employee_EmployeeId",
+                        name: "FK_Visits_Employee_EmployeeId",
                         column: x => x.EmployeeId,
                         principalTable: "Employee",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_visits_Patient_PatientId",
+                        name: "FK_Visits_Patient_PatientId",
                         column: x => x.PatientId,
                         principalTable: "Patient",
                         principalColumn: "Id",
@@ -212,9 +214,9 @@ namespace Przychodnia.Migrations
                 {
                     table.PrimaryKey("PK_MedicalPrescription", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MedicalPrescription_visits_VisitId",
+                        name: "FK_MedicalPrescription_Visits_VisitId",
                         column: x => x.VisitId,
-                        principalTable: "visits",
+                        principalTable: "Visits",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -233,9 +235,9 @@ namespace Przychodnia.Migrations
                 {
                     table.PrimaryKey("PK_SickLeave", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SickLeave_visits_VisitId",
+                        name: "FK_SickLeave_Visits_VisitId",
                         column: x => x.VisitId,
-                        principalTable: "visits",
+                        principalTable: "Visits",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -298,13 +300,13 @@ namespace Przychodnia.Migrations
                 column: "PatientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_visits_EmployeeId",
-                table: "visits",
+                name: "IX_Visits_EmployeeId",
+                table: "Visits",
                 column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_visits_PatientId",
-                table: "visits",
+                name: "IX_Visits_PatientId",
+                table: "Visits",
                 column: "PatientId");
         }
 
@@ -330,7 +332,7 @@ namespace Przychodnia.Migrations
                 name: "Medicines");
 
             migrationBuilder.DropTable(
-                name: "visits");
+                name: "Visits");
 
             migrationBuilder.DropTable(
                 name: "Employee");

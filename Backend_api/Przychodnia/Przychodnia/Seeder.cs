@@ -41,6 +41,13 @@ namespace Przychodnia
                     _dbcontext.Patient.AddRange(patients);
                     _dbcontext.SaveChanges();
                 }
+
+                if (!_dbcontext.Visits.Any()) 
+                {
+                    var visits = GetVisits();
+                    _dbcontext.Visits.AddRange(visits);
+                    _dbcontext.SaveChanges();
+                }
             }
         }
 
@@ -51,7 +58,7 @@ namespace Przychodnia
             new Patient
             {
                 FirstName = "Jan",
-                LastName = "Kowalski",
+                LastName = "Rudzki",
                 Pesel = "1234567890",
                 BirthDate = new DateTime(1980, 5, 10),
                 Gender = "Male",
@@ -88,7 +95,7 @@ namespace Przychodnia
             new Patient
             {
                 FirstName = "Anna",
-                LastName = "Nowak",
+                LastName = "Zając",
                 Pesel = "0987654321",
                 BirthDate = new DateTime(1992, 9, 15),
                 Gender = "Female",
@@ -125,7 +132,7 @@ namespace Przychodnia
             new Patient
             {
                 FirstName = "Piotr",
-                LastName = "Kowalczyk",
+                LastName = "Lewandowski",
                 Pesel = "5678901234",
                 BirthDate = new DateTime(1975, 3, 22),
                 Gender = "Male",
@@ -188,6 +195,43 @@ namespace Przychodnia
             return jobPositions;
 
         }
+
+        private IEnumerable<Visit> GetVisits()
+        {
+            var visits = new List<Visit>
+            {
+                 new Visit
+                {
+                    VisitDate = new DateTime(2024, 2, 1),
+                    StartTime = new TimeSpan(10, 0, 0),
+                    EndTime = new TimeSpan(11, 0, 0),
+                    Notes = "Regular checkup",
+                    EmployeeId = 1, // ID pracownika
+                    PatientId = 1 // ID pacjenta
+                },
+                new Visit
+                {
+                    VisitDate = new DateTime(2024, 2, 5),
+                    StartTime = new TimeSpan(14, 30, 0),
+                    EndTime = new TimeSpan(15, 30, 0),
+                    Notes = "Follow-up appointment",
+                    EmployeeId = 2, // ID pracownika
+                    PatientId = 2 // ID pacjenta
+                },
+                new Visit
+                {
+
+                    VisitDate = new DateTime(2024, 2, 10),
+                    StartTime = new TimeSpan(9, 0, 0),
+                    EndTime = new TimeSpan(10, 0, 0),
+                    Notes = "Treatment discussion",
+                    EmployeeId = 3, // ID pracownika
+                    PatientId = 3 // ID pacjenta
+                }
+            };
+            return visits;
+        }
+
         private IEnumerable<Employee> GetEmployees()
         {
             var employees = new List<Employee>
