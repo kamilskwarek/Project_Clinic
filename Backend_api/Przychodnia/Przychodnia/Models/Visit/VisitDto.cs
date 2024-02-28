@@ -9,8 +9,7 @@
 
         public string Notes { get; set; }
 
-        public string Employee { get; set; }
-
-        public string Patient { get; set; }
+        public int EmployeeId { get; set; }
+        public int PatientId { get; set; }
     }
 }

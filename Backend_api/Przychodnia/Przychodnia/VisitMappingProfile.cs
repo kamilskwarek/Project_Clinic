@@ -1,27 +1,24 @@
 ﻿using AutoMapper;
 using Przychodnia.Entities;
 using Przychodnia.Models.Visit;
-
+using Przychodnia.Services;
 
 
 namespace Przychodnia
 {
     public class VisitMappingProfile : Profile
     {
-
         public VisitMappingProfile()
-        { 
+        {
+            CreateMap<Visit, VisitDto>();
+
+            CreateMap<CreateVisitDto, Visit>();
+
+            CreateMap<UpdateVisitDto, Visit>();
+
             CreateMap<Visit, VisitDto>()
-                .ForMember(m => m.Employee, c=> c.MapFrom(s=>s.Employee.LastName))
-                .ForMember(m => m.Patient, c => c.MapFrom(s => s.Patient.LastName));
-
-
-            CreateMap<CreateVisitDto, Visit>()
-                .ForMember(r => r.Employee, c => c.MapFrom(dto => new Employee { LastName = dto.Employee }))
-                .ForMember(r => r.Patient, c => c.MapFrom(dto => new Patient { LastName = dto.Patient }));
-            CreateMap<UpdateVisitDto, Visit>()
-                .ForMember(r => r.Employee, c => c.MapFrom(dto => new Employee { LastName = dto.Employee }))
-                .ForMember(r => r.Patient, c => c.MapFrom(dto => new Patient { LastName = dto.Patient }));
+                .ForMember(dest => dest.EmployeeId, opt => opt.MapFrom(src => src.EmployeeId))
+                .ForMember(dest => dest.PatientId, opt => opt.MapFrom(src => src.PatientId));
         }
     }
 }

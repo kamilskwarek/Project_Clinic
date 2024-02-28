@@ -12,7 +12,7 @@ namespace Przychodnia.Services
         int Create(CreatePatientDto dti);
         bool Delete(int id);
         bool Update(int id, UpdatePatientDto dto);
-
+        int GetPatientIdByLastName(string lastName);
     }
 
     public class PatientService : IPatientService 
@@ -256,5 +256,10 @@ namespace Przychodnia.Services
             return true;
         }
 
+        public int GetPatientIdByLastName(string lastName)
+        {
+            var patient = _dbContext.Patient.FirstOrDefault(p => p.LastName == lastName);
+            return patient != null ? patient.Id : -1;
+        }
     }
 }

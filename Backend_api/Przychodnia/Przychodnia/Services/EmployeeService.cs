@@ -12,6 +12,7 @@ namespace Przychodnia.Services
         bool Delete(int id);
         EmployeeDto GetByIdWithDetails(int id);
         bool Update(int id, UpdateEmployeeDto dto);
+        int GetEmployeeIdByLastName(string lastName);
     }
 
     public class EmployeeService : IEmployeeService
@@ -157,7 +158,11 @@ namespace Przychodnia.Services
             return true;
         }
 
-
+        public int GetEmployeeIdByLastName(string lastName)
+        {
+            var employee = _dbContext.Employee.FirstOrDefault(e => e.LastName == lastName);
+            return employee != null ? employee.Id : -1;
+        }
 
     }
 }

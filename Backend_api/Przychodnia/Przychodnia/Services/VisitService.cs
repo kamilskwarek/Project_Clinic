@@ -62,8 +62,8 @@ namespace Przychodnia.Services
             if (visit == null) return null;
             var result = _mapper.Map<VisitDto>(visit);
 
-            result.Employee = visit.Employee?.LastName;
-            result.Patient = visit.Patient?.LastName;
+            result.EmployeeId = visit.EmployeeId;
+            result.PatientId = visit.PatientId;
 
             return result;
         }
@@ -78,19 +78,22 @@ namespace Przychodnia.Services
 
             var visitDtos = _mapper.Map<List<VisitDto>>(visits);
 
-            foreach (var visitsDto in visitDtos)
+            foreach (var visitDto in visitDtos)
             {
-                visitsDto.Employee = visits.FirstOrDefault(v => v.Id == visitsDto.Id)?.Employee?.LastName;
-                visitsDto.Patient = visits.FirstOrDefault(v => v.Id == visitsDto.Id)?.Patient?.LastName;
-
+                visitDto.EmployeeId = visitDto.EmployeeId;
+                visitDto.PatientId = visitDto.PatientId;
             }
             return visitDtos;
         }
 
         public int Create(CreateVisitDto dto)
         {
-            var employee = _dbcontext.Employee.FirstOrDefault(e => e.LastName == dto.Employee);
-            var patient = _dbcontext.Patient.FirstOrDefault(p => p.LastName == dto.Patient);
+
+            var employeeId = dto.EmployeeId;
+            var patientId = dto.PatientId;
+
+            var employee = _dbcontext.Employee.FirstOrDefault(e => e.Id == dto.EmployeeId);
+            var patient = _dbcontext.Patient.FirstOrDefault(p => p.Id == dto.PatientId);
 
             if(employee == null)
             {
@@ -103,8 +106,8 @@ namespace Przychodnia.Services
             }
 
             var visit = _mapper.Map<Visit>(dto);
-            visit.Employee = employee;
-            visit.Patient = patient;
+            visit.EmployeeId = employeeId;
+            visit.PatientId = patientId;
             _dbcontext.Visits.Add(visit);
             _dbcontext.SaveChanges();
 
@@ -140,23 +143,24 @@ namespace Przychodnia.Services
             {
                 visit.Notes = dto.Notes;
             }
-            if(!string.IsNullOrEmpty(dto.Employee))
+            if (dto.EmployeeId != 0)
             {
-                var employee = _dbcontext.Employee.FirstOrDefault(e => e.LastName == dto.Employee);
-                if(employee == null)
+                var employee = _dbcontext.Employee.FirstOrDefault(e => e.Id == dto.EmployeeId);
+                if (employee == null)
                 {
                     throw new Exception("Nieprawidłowy pracownik");
                 }
-                visit.Employee = employee;
+                visit.EmployeeId = dto.EmployeeId;
             }
-            if (!string.IsNullOrEmpty(dto.Patient))
+
+            if (dto.PatientId != 0)
             {
-                var patient = _dbcontext.Patient.FirstOrDefault(p => p.LastName == dto.Patient);
+                var patient = _dbcontext.Patient.FirstOrDefault(p => p.Id == dto.PatientId);
                 if (patient == null)
                 {
-                    throw new Exception("Nieprawidłowy pacjent.");
+                    throw new Exception("Nieprawidłowy pacjent");
                 }
-                visit.Patient = patient;
+                visit.PatientId = dto.PatientId;
             }
             _dbcontext.SaveChanges();
             return true;
