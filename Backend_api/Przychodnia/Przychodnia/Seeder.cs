@@ -262,7 +262,62 @@ namespace Przychodnia
                     PhoneNumber = "555-555-555",
                     JobPositionId = 2,
                     ClinicId = 3
-                }
+                },
+                new Employee
+                {
+                    FirstName = "Jan",
+                    LastName = "Kowalski",
+                    Pesel = "1234567890",
+                    PhoneNumber = "123-456-789",
+                    JobPositionId = 1,
+                    ClinicId = 1
+                },
+                new Employee
+                {
+                    FirstName = "Anna",
+                    LastName = "Nowak",
+                    Pesel = "0987654321",
+                    PhoneNumber = "987-654-321",
+                    JobPositionId = 2,
+                    ClinicId = 2
+                },
+                new Employee
+                {
+                    FirstName = "Piotr",
+                    LastName = "Kowalczyk",
+                    Pesel = "5678901234",
+                    PhoneNumber = "555-555-555",
+                    JobPositionId = 2,
+                    ClinicId = 3
+                },
+                new Employee
+                {
+                    FirstName = "Jan",
+                    LastName = "Kowalski",
+                    Pesel = "1234567890",
+                    PhoneNumber = "123-456-789",
+                    JobPositionId = 1,
+                    ClinicId = 1
+                },
+                new Employee
+                {
+                    FirstName = "Anna",
+                    LastName = "Nowak",
+                    Pesel = "0987654321",
+                    PhoneNumber = "987-654-321",
+                    JobPositionId = 2,
+                    ClinicId = 2
+                },
+                new Employee
+                {
+                    FirstName = "Piotr",
+                    LastName = "Kowalczyk",
+                    Pesel = "5678901234",
+                    PhoneNumber = "555-555-555",
+                    JobPositionId = 2,
+                    ClinicId = 3
+                },
+
             };
 
             return employees;

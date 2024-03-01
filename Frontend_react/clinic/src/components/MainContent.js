@@ -1,99 +1,113 @@
 import React, { useState, useEffect } from 'react';
-import EmployeeList from './EmployeeList';
-import EmployeeAddForm from './EmployeeAddForm';
+import EmployeeList from './Employee/EmployeeList';
+import EmployeeAddForm from './Employee/EmployeeAddForm';
+import JobPositionList from './JobPosition/JobPositionList';
+import JobPositionAddForm from './JobPosition/JobPositionList';
 
-const MainContent = ({ 
-  activeMenuItem, 
-  addEmployeeToAPI, 
-  isFormVisible, 
-  setIsFormVisible, 
-  deleteEmployeeFromAPI, 
-  editEmployeeInAPI 
-  }) => {
+
+import { loadEmployees, updateEmployeeInAPI, refreshEmployees, showEmployeeAddForm, handleEditEmployee, handleDeleteEmployee } from '../API/EmployeeAPI';
+import { loadJobPositions, updateJobPositionInAPI, refreshJobPositions, showJobPositionAddForm, handleEditJobPosition, handleDeleteJobPosition } from '../API/JobPositionAPI';
+
+
+const MainContent = ({ activeMenuItem,
+  addEmployeeToAPI, isEmployeeFormVisible, setIsEmployeeFormVisible, deleteEmployeeFromAPI,
+  addJobPositionToAPI, isJobPositionFormVisible, setIsJobPositionFormVisible, deleteJobPositionFromAPI,}) => {
 
   const [employees, setEmployees] = useState([]);
   const [employeeToEdit, setEmployeeToEdit] = useState(null);
 
+  const [jobPositions, setJobPositions] = useState([]);
+  const [jobPositionToEdit, setJobPositionToEdit] = useState(null);
+
+  const refreshEmployeeList = () => refreshEmployees(setEmployees, loadEmployees);
+  const showEmployeeForm = () => showEmployeeAddForm(setIsEmployeeFormVisible);
+  const editEmployee = (employee) => handleEditEmployee(employee, setEmployeeToEdit, setIsEmployeeFormVisible);
+  const deleteEmployee = (id) => handleDeleteEmployee(id, deleteEmployeeFromAPI, setEmployees, loadEmployees);
+
+
+  const refreshJobPositionList = () => refreshJobPositions(setJobPositions, loadJobPositions);
+  const showJobPositionForm = () => showJobPositionAddForm(setIsJobPositionFormVisible);
+  const editJobPosition = (jobPosition) => handleEditJobPosition(jobPosition, setJobPositionToEdit, setIsJobPositionFormVisible);
+  const deleteJobPosition = (id) => handleDeleteJobPosition(id, deleteJobPositionFromAPI, setJobPositions, loadJobPositions);
+// employee
+
   useEffect(() => {
     if (activeMenuItem === 2) {
-      loadEmployees();
+      refreshEmployeeList();
     }
   }, [activeMenuItem]);
 
   useEffect(() => {
-    if (!isFormVisible) {
+    if (!isEmployeeFormVisible) {
       setEmployeeToEdit(null);
     }
-  }, [isFormVisible]);
+  }, [isEmployeeFormVisible]);
 
-  const loadEmployees = async () => {
-    try {
-      const response = await fetch('https://localhost:7137/api/employee');
-      if (!response.ok) {
-        throw new Error('Failed to fetch employees');
-      }
-
-      const data = await response.json();
-      setEmployees(data);
-    } catch (error) {
-      console.error('Wystąpił błąd podczas pobierania danych pracowników:', error);
+//jobposition
+  useEffect(() => {
+    if (activeMenuItem === 4) {
+      refreshJobPositionList();
     }
-  };
+  }, [activeMenuItem]);
 
-  const showAddForm = () => {
-    setIsFormVisible(true);
-  };
-
-  const handleEditEmployee = (employee) => {
-    setEmployeeToEdit(employee);
-    setIsFormVisible(true);
-  };
-
-  const updateEmployeeInAPI = async (updatedEmployee) => {
-    try {
-      const response = await fetch(`https://localhost:7137/api/employee/${employeeToEdit.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedEmployee),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to update employee');
-      }
-
-      loadEmployees();
-      setIsFormVisible(false);
-      setEmployeeToEdit(null);
-
-    } catch (error) {
-      console.error('Error during employee update:', error);
+  useEffect(() => {
+    if (!isJobPositionFormVisible) {
+      setJobPositionToEdit(null);
     }
-  };
+  }, [isJobPositionFormVisible]);
 
   return (
     <div className="main-content">
       {activeMenuItem === 1 && <div>Tu będzie zawartość dla linka 1 (Strona główna)</div>}
       
-      {activeMenuItem === 2 && !isFormVisible && (
-          <EmployeeList 
-            employees={employees} 
-            onAddButtonClick={showAddForm} 
-            deleteEmployee={(id) => {
-                deleteEmployeeFromAPI(id, loadEmployees);
-            }} 
-            editEmployee={handleEditEmployee}
-          />
+      {activeMenuItem === 2 && !isEmployeeFormVisible && (
+        <EmployeeList 
+          employees={employees} 
+          onAddButtonClick={showEmployeeForm}
+          deleteEmployee={deleteEmployee} 
+          editEmployee={editEmployee} 
+        />
       )}
       
-      {activeMenuItem === 2 && isFormVisible && (
-          <EmployeeAddForm 
-          addEmployeeHandler={(employee) => addEmployeeToAPI(employee, loadEmployees)}
-          editEmployeeHandler={updateEmployeeInAPI}
+      {activeMenuItem === 2 && isEmployeeFormVisible && (
+        <EmployeeAddForm 
+          addEmployeeHandler={(employee) => addEmployeeToAPI(employee, () => refreshEmployeeList())} 
+          editEmployeeHandler={(updatedEmployee) => 
+            updateEmployeeInAPI(
+              employeeToEdit.id,
+              updatedEmployee,
+              () => refreshEmployeeList(), 
+              setIsEmployeeFormVisible,
+              setEmployeeToEdit
+            )
+          }
           employeeToEdit={employeeToEdit}
-      />
+        />
+      )}
+
+{activeMenuItem === 4 && !isJobPositionFormVisible && (
+        <JobPositionList 
+          jobPositions={jobPositions} 
+          onAddButtonClick={showJobPositionForm}
+          deleteJobPosition={deleteJobPosition} 
+          editJobPosition={editJobPosition} 
+        />
+      )}
       
+      {activeMenuItem === 4 && isJobPositionFormVisible && (
+        <JobPositionAddForm 
+          addJobPositionHandler={(jobPosition) => addJobPositionToAPI(jobPosition, () => refreshJobPositionList())} 
+          editJobPositionHandler={(updatedJobPosition) => 
+            updateJobPositionInAPI(
+              jobPositionToEdit.id,
+              updatedJobPosition,
+              () => refreshJobPositionList(), 
+              setIsJobPositionFormVisible,
+              setJobPositionToEdit
+            )
+          }
+          jobPositionToEdit={jobPositionToEdit}
+        />
       )}
     </div>
   );

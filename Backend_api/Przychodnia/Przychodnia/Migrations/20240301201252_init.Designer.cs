@@ -12,7 +12,7 @@ using Przychodnia.Entities;
 namespace Przychodnia.Migrations
 {
     [DbContext(typeof(ClinicDbContext))]
-    [Migration("20240228165931_init")]
+    [Migration("20240301201252_init")]
     partial class init
     {
         /// <inheritdoc />
