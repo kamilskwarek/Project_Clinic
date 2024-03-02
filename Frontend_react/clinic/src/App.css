@@ -111,6 +111,7 @@ body {
 }
 
 /*jobPostion*/
+
 .JobPositionAddForm ul{
   list-style: none;
   padding: 0; 
@@ -156,6 +157,101 @@ body {
   font-size: 20px;
 
 }
+
+/* clinic */
+.ClinicAddForm ul{
+  list-style: none;
+  padding: 0; 
+
+}
+.ClinicAddForm Input{
+  border: none;
+  border-bottom: 2px solid rgb(185, 185, 185);
+  margin-bottom: 10px;
+ 
+}
+.ClinicAddForm Input:focus{
+  border: none;
+  outline-width: 0;
+  border-bottom: 2px solid #006a6a;
+  transition: 0.5s;
+}
+.ClinicList {
+  width: fit-content;
+  font-size: 20px;
+}
+.ClinicList ul{
+  list-style: none;
+  padding: 0;
+}
+.ClinicList li{
+  border-bottom: 2px solid grey;
+  border-left: 2px solid grey;
+
+
+}
+.ClinicList p{
+  display: table-cell;
+  width: 140px;
+  padding: 5px; 
+  border-right: 2px solid grey ;
+ 
+  word-wrap:normal;
+}
+.ClinicList button{
+  border:  1px solid #006a6a;
+  border-radius: 7px;
+  font-size: 20px;
+
+}
+
+/* patient */
+.PatientAddForm ul{
+  list-style: none;
+  padding: 0; 
+
+}
+.PatientAddForm Input{
+  border: none;
+  border-bottom: 2px solid rgb(185, 185, 185);
+  margin-bottom: 10px;
+ 
+}
+.PatientAddForm Input:focus{
+  border: none;
+  outline-width: 0;
+  border-bottom: 2px solid #006a6a;
+  transition: 0.5s;
+}
+.PatientList {
+  width: fit-content;
+  font-size: 20px;
+}
+.PatientList ul{
+  list-style: none;
+  padding: 0;
+}
+.PatientList li{
+  border-bottom: 2px solid grey;
+  border-left: 2px solid grey;
+
+
+}
+.PatientList p{
+  display: table-cell;
+  width: 140px;
+  padding: 5px; 
+  border-right: 2px solid grey ;
+ 
+  word-wrap:normal;
+}
+.PatientList button{
+  border:  1px solid #006a6a;
+  border-radius: 7px;
+  font-size: 20px;
+
+}
+/* remaining */
 
 .idParagraph{
   width: 25px !important;

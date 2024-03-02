@@ -20,7 +20,7 @@ const JobPositionList = ({ jobPositions, onAddButtonClick, deleteJobPosition, ed
 
   return (
     <div className="JobPositionList">
-      <h2>Lista stanoisk pracy:</h2>
+      <h2>Lista stanowisk pracy:</h2>
       <button onClick={onAddButtonClick}>Dodaj stanowisko</button>
 
       {/* Pasek wyszukiwania */}
@@ -44,7 +44,7 @@ const JobPositionList = ({ jobPositions, onAddButtonClick, deleteJobPosition, ed
           <p className='buttonParagraph' >Usuń</p>
         </li>
 
-        {filteredJobPositions.map((jobPosition, index) => (
+        {filteredJobPositions.map((jobPosition) => (
           <li key={jobPosition.id} id={jobPosition.id}>
             <p className='idParagraph' >{jobPosition.id}</p>
             <p>{jobPosition.jobTitle}</p>

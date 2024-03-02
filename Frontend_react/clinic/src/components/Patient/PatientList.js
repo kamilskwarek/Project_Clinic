@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const EmployeeList = ({ employees, onAddButtonClick, deleteEmployee, editEmployee }) => {
+const PatientList = ({ patients, onAddButtonClick, deletePatient, editPatient }) => {
   const [searchText, setSearchText] = useState('');
   const [searchBy, setSearchBy] = useState('firstName');
 
@@ -13,21 +13,20 @@ const EmployeeList = ({ employees, onAddButtonClick, deleteEmployee, editEmploye
   };
 
 
-  const filteredEmployees = employees ? employees.filter((employee) => {
-    const value = String(employee[searchBy] || '').toLowerCase();
+  const filteredPatients = patients ? patients.filter((patient) => {
+    const value = String(patient[searchBy] || '').toLowerCase();
     return value.includes(searchText.toLowerCase());
   }) : [];
 
   return (
-    <div className="EmployeeList">
-      <h2>Lista pracowników:</h2>
-      <button onClick={onAddButtonClick}>Dodaj pracownika</button>
+    <div className="PatientList">
+      <h2>Lista Pacjentów:</h2>
+      <button onClick={onAddButtonClick}>Dodaj Pacjenta</button>
 
       <div className="searchBar">
         <select onChange={handleSearchByChange} value={searchBy}>
           <option value="firstName">Imię</option>
           <option value="lastName">Nazwisko</option>
-          <option value="jobPosition">Stanowisko</option>
           <option value="pesel">Pesel</option>
           <option value="phoneNumber">Nr. telefonu</option>
         </select>
@@ -43,27 +42,25 @@ const EmployeeList = ({ employees, onAddButtonClick, deleteEmployee, editEmploye
           <p className='idParagraph'>Id</p>
           <p>Imię</p>
           <p>Nazwisko</p>
-          <p>Stanowisko</p>
           <p>Pesel</p>
           <p>Nr. telefonu</p>
           <p className='buttonParagraph'> Edytuj</p>
           <p className='buttonParagraph'>Usuń</p>
         </li>
-        {filteredEmployees.map((employee) => (
-          <li key={employee.id} id={employee.id}>
-            <p className='idParagraph'>{employee.id}</p>
-            <p>{employee.firstName}</p>
-            <p>{employee.lastName}</p>
-            <p>{employee.jobPosition}</p>
-            <p>{employee.pesel}</p>
-            <p>{employee.phoneNumber}</p>
+        {filteredPatients.map((patient) => (
+          <li key={patient.id} id={patient.id}>
+            <p className='idParagraph'>{patient.id}</p>
+            <p>{patient.firstName}</p>
+            <p>{patient.lastName}</p>
+            <p>{patient.pesel}</p>
+            <p>{patient.phoneNumber}</p>
             <p className='buttonParagraph'>
-                <button onClick={() => editEmployee(employee)}>
+                <button onClick={() => editPatient(patient)}>
                     Edytuj
                 </button>
             </p>
             <p  className='buttonParagraph'>
-                <button onClick={() => deleteEmployee(employee.id)}>
+                <button onClick={() => deletePatient(patient.id)}>
                     Usuń
                 </button>
             </p>
@@ -74,4 +71,4 @@ const EmployeeList = ({ employees, onAddButtonClick, deleteEmployee, editEmploye
   );
 };
 
-export default EmployeeList;
+export default PatientList;

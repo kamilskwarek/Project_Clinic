@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const EmployeeAddForm = ({ addEmployeeHandler, editEmployeeHandler, employeeToEdit, jobPositiontoEdit }) => {
+const EmployeeAddForm = ({ addEmployeeHandler, editEmployeeHandler, employeeToEdit }) => {
   const [firstName, setFirstName] = useState(employeeToEdit ? employeeToEdit.firstName : '');
   const [lastName, setLastName] = useState(employeeToEdit ? employeeToEdit.lastName : '');
   const [pesel, setPesel] = useState(employeeToEdit ? employeeToEdit.pesel : '');

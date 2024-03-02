@@ -4,18 +4,27 @@ import Navbar from './components/Navbar';
 import MainContent from './components/MainContent';
 import { addEmployeeToAPI, deleteEmployeeFromAPI, editEmployeeInAPI } from './API/EmployeeAPI';
 import { addJobPositionToAPI, deleteJobPositionFromAPI, editJobPositionInAPI } from './API/JobPositionAPI';
+import { addClinicToAPI, deleteClinicFromAPI, editClinicInAPI } from './API/ClinicAPI';
+import { addPatientToAPI, deletePatientFromAPI, editPatientInAPI } from './API/PatientAPI';
+
+
 
 const App = () => {
   const [activeMenuItem, setActiveMenuItem] = useState(null);
   const [isEmployeeFormVisible, setIsEmployeeFormVisible] = useState(false);
   const [isJobPositionFormVisible, setIsJobPositionFormVisible] = useState(false);
+  const [isClinicFormVisible, setIsClinicFormVisible] = useState(false);
+  const [isPatientFormVisible, setIsPatientFormVisible] = useState(false);
+
+
 
 
   const menuItems = [
     { id: 1, label: 'Strona główna' },
     { id: 2, label: 'Pracownicy' },
     { id: 3, label: 'Pacjenci' },
-    { id: 4, label: 'Stanowiska' }
+    { id: 4, label: 'Stanowiska' },
+    { id: 5, label: 'Placówki'}
   ];
 
   return (
@@ -28,7 +37,10 @@ const App = () => {
               <li key={item.id} onClick={() => {
                 setActiveMenuItem(item.id);
                 if (item.id === 2) setIsEmployeeFormVisible(false);
+                if (item.id === 3) setIsPatientFormVisible(false);
                 if (item.id === 4) setIsJobPositionFormVisible(false);
+                if (item.id === 5) setIsClinicFormVisible(false);
+
               }}>
                 {item.label}
               </li>
@@ -44,12 +56,26 @@ const App = () => {
           deleteEmployeeFromAPI={deleteEmployeeFromAPI}
           editEmployeeInAPI={editEmployeeInAPI}
 
+           //Patient
+           isPatientFormVisible={isPatientFormVisible}
+           setIsPatientFormVisible={setIsPatientFormVisible}
+           addPatientToAPI={(newPatient, callback) => addPatientToAPI(newPatient, setIsPatientFormVisible, callback)}
+           deletePatientFromAPI={deletePatientFromAPI}
+           editPatientInAPI={editPatientInAPI}
+
           //job position
           isJobPositionFormVisible={isJobPositionFormVisible}
           setIsJobPositionFormVisible={setIsJobPositionFormVisible}
           addJobPositionToAPI={(newJobPosition, callback) => addJobPositionToAPI(newJobPosition, setIsJobPositionFormVisible, callback)}
           deleteJobPositionFromAPI={deleteJobPositionFromAPI}
           editJobPositionInAPI={editJobPositionInAPI}
+
+          //clinic
+          isClinicFormVisible={isClinicFormVisible}
+          setIsClinicFormVisible={setIsClinicFormVisible}
+          addClinicToAPI={(newClinic, callback) => addClinicToAPI(newClinic, setIsClinicFormVisible, callback)}
+          deleteClinicFromAPI={deleteClinicFromAPI}
+          editClinicInAPI={editClinicInAPI}
         />
       </div>
     </div>
