@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import EmployeeList from './Employee/EmployeeList';
 import EmployeeAddForm from './Employee/EmployeeAddForm';
 import JobPositionList from './JobPosition/JobPositionList';
-import JobPositionAddForm from './JobPosition/JobPositionList';
+import JobPositionAddForm from './JobPosition/JobPositionAddForm';
 
 
 import { loadEmployees, updateEmployeeInAPI, refreshEmployees, showEmployeeAddForm, handleEditEmployee, handleDeleteEmployee } from '../API/EmployeeAPI';

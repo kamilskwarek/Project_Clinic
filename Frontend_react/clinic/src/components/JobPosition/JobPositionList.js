@@ -48,7 +48,9 @@ const JobPositionList = ({ jobPositions, onAddButtonClick, deleteJobPosition, ed
           <li key={jobPosition.id} id={jobPosition.id}>
             <p className='idParagraph' >{jobPosition.id}</p>
             <p>{jobPosition.jobTitle}</p>
-            <p>{jobPosition.JobDescription}</p>
+            {<p></p>}
+
+            {/* <p>{jobPosition.jobDescription}</p> */}
             <p className='buttonParagraph'>
                 <button onClick={() => editJobPosition(jobPosition)}>
                     Edytuj

@@ -37,14 +37,14 @@ const JobPositionAddForm = ({ addJobPositionHandler, editJobPositionHandler, job
       <li>
         <label>Opis stanowiska:</label>
         <br></br>
-        <input type="text" value={jobDescription} onChange={(e) => setJobDescription(e.target.value)} required />
+        <input type="text" value={jobDescription} onChange={(e) => setJobDescription(e.target.value)}/>
       </li>
       </ul>
-      <button type="submit">{jobPostionToEdit ? "Aktualizuj stanowiska" : "Dodaj stanowisko"}</button>
+      <button type="submit">{jobPositionToEdit ? "Aktualizuj stanowiska" : "Dodaj stanowisko"}</button>
     
     </form>
 
   );
 };
 
-export default JobPostionAddForm;
+export default JobPositionAddForm;

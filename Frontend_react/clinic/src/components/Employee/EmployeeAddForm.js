@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const EmployeeAddForm = ({ addEmployeeHandler, editEmployeeHandler, employeeToEdit }) => {
+const EmployeeAddForm = ({ addEmployeeHandler, editEmployeeHandler, employeeToEdit, jobPositiontoEdit }) => {
   const [firstName, setFirstName] = useState(employeeToEdit ? employeeToEdit.firstName : '');
   const [lastName, setLastName] = useState(employeeToEdit ? employeeToEdit.lastName : '');
   const [pesel, setPesel] = useState(employeeToEdit ? employeeToEdit.pesel : '');
@@ -8,10 +8,11 @@ const EmployeeAddForm = ({ addEmployeeHandler, editEmployeeHandler, employeeToEd
   const [jobTitle, setJobTitle] = useState(employeeToEdit ? employeeToEdit.jobTitle : '');
   const [clinicName, setClinicName] = useState(employeeToEdit ? employeeToEdit.clinicName : '');
   const [clinics, setClinics] = useState(employeeToEdit && Array.isArray(employeeToEdit.clinic) ? employeeToEdit.clinic : []);
-
+  const [jobPositions, setJobPositions] = useState(employeeToEdit && Array.isArray(employeeToEdit.jobPosition) ? employeeToEdit.jobPosition :[])
 
   useEffect(() => {
     fetchClinics();
+    fetchJobPositions();
   }, []);
 
   const fetchClinics = async () => {
@@ -23,6 +24,16 @@ const EmployeeAddForm = ({ addEmployeeHandler, editEmployeeHandler, employeeToEd
       console.error('Błąd podczas pobierania klinik:', error);
     }
   };
+
+  const fetchJobPositions = async () =>{
+    try{
+      const response = await fetch('https://localhost:7137/api/jobposition')
+      const data = await response.json();
+      setJobPositions(data);
+    }catch(error){
+      console.error('Bład podczas pobierania stanowisk pracy')
+    }
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -78,8 +89,16 @@ const EmployeeAddForm = ({ addEmployeeHandler, editEmployeeHandler, employeeToEd
       </li>
       <li>
         <label>Stanowisko:</label>
-        <br></br>
-        <input type="text" value={jobTitle} onChange={(e) => setJobTitle(e.target.value)} />
+        <br/>
+        <select value={jobTitle} onChange={(e) => setJobTitle(e.target.value)}>
+        <option value="">Wybierz stanowisko</option>
+        {jobPositions.map(jobPosition => (
+          <option key={jobPosition.id} value={jobPosition.jobTitle}>
+            {jobPosition.jobTitle}
+          </option>
+        ))}
+
+        </select>
       </li>
       <li>
           <label>Nazwa kliniki:</label>
