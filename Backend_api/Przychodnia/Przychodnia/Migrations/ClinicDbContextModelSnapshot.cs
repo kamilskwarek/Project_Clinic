@@ -241,7 +241,7 @@ namespace Przychodnia.Migrations
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<bool>("BreastCancer")
                         .HasColumnType("bit");

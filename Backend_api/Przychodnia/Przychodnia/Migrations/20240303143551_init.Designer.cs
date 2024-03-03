@@ -12,7 +12,7 @@ using Przychodnia.Entities;
 namespace Przychodnia.Migrations
 {
     [DbContext(typeof(ClinicDbContext))]
-    [Migration("20240301201252_init")]
+    [Migration("20240303143551_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -244,7 +244,7 @@ namespace Przychodnia.Migrations
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<bool>("BreastCancer")
                         .HasColumnType("bit");

@@ -118,9 +118,12 @@ namespace Przychodnia.Entities
               .Property(p => p.Pesel)
               .HasMaxLength(11)
               .IsRequired();
-            modelBuilder.Entity<Patient>()
-              .Property(p => p.BirthDate)
-              .IsRequired();
+            modelBuilder.Entity<Patient>(entity =>
+            {
+                entity.Property(e => e.BirthDate)
+                    .HasColumnType("date")
+                    .IsRequired();
+            });
             modelBuilder.Entity<Patient>()
               .Property(p => p.Gender)
               .HasMaxLength(25)
