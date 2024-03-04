@@ -10,7 +10,7 @@ namespace Przychodnia.Services
 
         JobPositionDto GetById(int id);
         IEnumerable<JobPositionDto> GetAll();
-        int Create(CreateJobPosiotionDto dto);
+        int Create(CreateJobPositionDto dto);
         bool Delete(int id);
         bool Update(int od, UpdateJobPositionDto dto);
     
@@ -60,7 +60,7 @@ namespace Przychodnia.Services
         }
 
 
-        public int Create(CreateJobPosiotionDto dto)
+        public int Create(CreateJobPositionDto dto)
         {
             var jobPosition = _mapper.Map<JobPosition>(dto);
             _dbContext.jobPositions.Add(jobPosition);

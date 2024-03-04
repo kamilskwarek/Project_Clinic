@@ -36,7 +36,7 @@ namespace Przychodnia.Controllers
 
             var id = _employeeService.Create(dto);
 
-            return Created($"/api/employee/{id}", null);
+            return Created($"/api/employee/{id}", new { id = id });
         }
 
         [HttpPut("{id}")]

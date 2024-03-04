@@ -32,6 +32,7 @@ export const loadPatients = async () => {
       if (!response.ok) {
         throw new Error('Failed to update patient');
       }
+      console.log("Zaktualizowano pacjenta: " + response.ok)
   
       await refreshPatients();
       setIsPatientFormVisible(false);
@@ -42,7 +43,7 @@ export const loadPatients = async () => {
   };
   
   
-  export const addPatientToAPI = async (newPatient, setIsPatientFormVisible, callback) => {
+  export const addPatientToAPI = async (newPatient, setIsPatientFormVisible, refreshPatients) => {
     try {
       const response = await fetch('https://localhost:7137/api/patient/', {  
         method: 'POST',
@@ -61,14 +62,14 @@ export const loadPatients = async () => {
     } catch (error) {
       console.error('Błąd przy dodawaniu pacjenta:', error.message);
     }
+    await refreshPatients();
     setIsPatientFormVisible(false); 
-    callback();
   };
   
   
   
   
-  export const deletePatientFromAPI = async (patientId, callback) => {
+  export const deletePatientFromAPI = async (patientId) => {
     try {
         const response = await fetch(`https://localhost:7137/api/patient/${patientId}`, {
             method: 'DELETE',
@@ -82,7 +83,6 @@ export const loadPatients = async () => {
         }
   
         console.log('Usunięto pacjenta:', patientId);
-        callback();
     } catch (error) {
         console.error('Błąd przy usuwaniu pacjenta:', error.message);
     }

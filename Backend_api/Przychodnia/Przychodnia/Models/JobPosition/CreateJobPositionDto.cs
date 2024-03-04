@@ -2,7 +2,7 @@
 
 namespace Przychodnia.Models.JobPosition
 {
-    public class CreateJobPosiotionDto
+    public class CreateJobPositionDto
     {
         [Required]
         [MaxLength(50)]

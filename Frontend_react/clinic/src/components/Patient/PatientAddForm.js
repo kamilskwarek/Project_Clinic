@@ -29,10 +29,11 @@ const PatientAddForm = ({ addPatientHandler, editPatientHandler, patientToEdit }
     specialDiet: patientToEdit ? patientToEdit.specialDiet : '',
     specialDietRemarks: patientToEdit ? patientToEdit.specialDietRemarks : '',
     allergies: patientToEdit ? patientToEdit.allergies : '',
+    allergiesRemarks: patientToEdit ? patientToEdit.allergiesRemarks : '',
+
   });
 
   const [formDataPage3, setFormDataPage3] = useState({
-    allergiesRemarks: patientToEdit ? patientToEdit.allergiesRemarks : '',
     medications: patientToEdit ? patientToEdit.medications : '',
     surgeries: patientToEdit ? patientToEdit.surgeries : '',
     hospitalizations: patientToEdit ? patientToEdit.hospitalizations : '',
@@ -42,6 +43,13 @@ const PatientAddForm = ({ addPatientHandler, editPatientHandler, patientToEdit }
     hypertension: patientToEdit ? patientToEdit.hypertension : '',
     diabetes: patientToEdit ? patientToEdit.diabetes : '',
     breastCancer: patientToEdit ? patientToEdit.breastCancer : '',
+    ovarianCancer: patientToEdit ? patientToEdit.ovarianCancer : '',
+    metalIllness: patientToEdit ? patientToEdit.metalIllness : '',
+    other: patientToEdit ? patientToEdit.other : '',
+    otherRemarks: patientToEdit ? patientToEdit.otherRemarks : '',
+
+
+
   });
 
   const handleNextPage = () => {
@@ -66,6 +74,8 @@ const PatientAddForm = ({ addPatientHandler, editPatientHandler, patientToEdit }
       addPatientHandler(patientData);
     }
   };
+
+
 
   return (
     <form className="PatientAddForm" onSubmit={handleSubmit}>
@@ -114,7 +124,8 @@ const PatientAddForm = ({ addPatientHandler, editPatientHandler, patientToEdit }
               <input
                 type="date"
                 value={formDataPage1.birthDate ? new Date(formDataPage1.birthDate).toLocaleDateString('en-CA') : ''} // Formatowanie daty
-                onChange={(e) => setFormDataPage1({ ...formDataPage1, birthDate: e.target.value })}
+                onChange={(e) =>
+                  setFormDataPage1({ ...formDataPage1, birthDate: e.target.value })}
                 required
               />
             </li>
@@ -228,15 +239,12 @@ const PatientAddForm = ({ addPatientHandler, editPatientHandler, patientToEdit }
             <li>
               <label>Ciąża uwagi:</label>
               <br />
-              <input
-                type="text"
-                value={formDataPage2.pregnantRemakrs}
-                onChange={(e) =>
-                  setFormDataPage2({ ...formDataPage2, pregnantRemakrs: e.target.value })
-                }
-
-              />
+              <textarea rows="4" cols="50"
+                value={formDataPage2.pregnantRemarks}
+                onChange={(e) => setFormDataPage2({ ...formDataPage2, pregnantRemarks: e.target.value })}
+              ></textarea>
             </li>
+
             <li>
               Palenie:
               <label>
@@ -251,14 +259,10 @@ const PatientAddForm = ({ addPatientHandler, editPatientHandler, patientToEdit }
             <li>
               <label>Palenie uwagi:</label>
               <br />
-              <input
-                type="text"
-                value={formDataPage2.smokingRemakrs}
-                onChange={(e) =>
-                  setFormDataPage2({ ...formDataPage2, smokingRemakrs: e.target.value })
-                }
-
-              />
+              <textarea rows="4" cols="50"
+                value={formDataPage2.smokingRemarks}
+                onChange={(e) => setFormDataPage2({ ...formDataPage2, smokingRemarks: e.target.value })}
+              ></textarea>
             </li>
             <li>
               Alkohol:
@@ -271,17 +275,14 @@ const PatientAddForm = ({ addPatientHandler, editPatientHandler, patientToEdit }
               </label>
             </li>
 
+
             <li>
               <label>Alkohol uwagi:</label>
               <br />
-              <input
-                type="text"
-                value={formDataPage2.alcoholRemakrs}
-                onChange={(e) =>
-                  setFormDataPage2({ ...formDataPage2, alcoholRemakrs: e.target.value })
-                }
-
-              />
+              <textarea rows="4" cols="50"
+                value={formDataPage2.alcoholRemarks}
+                onChange={(e) => setFormDataPage2({ ...formDataPage2, alcoholRemarks: e.target.value })}
+              ></textarea>
             </li>
             <li>
               Spcejalna dieta:
@@ -293,19 +294,15 @@ const PatientAddForm = ({ addPatientHandler, editPatientHandler, patientToEdit }
                 />
               </label>
             </li>
+
             <li>
               <label>Spcejalna dieta uwagi:</label>
               <br />
-              <input
-                type="text"
+              <textarea rows="4" cols="50"
                 value={formDataPage2.specialDietRemarks}
-                onChange={(e) =>
-                  setFormDataPage2({ ...formDataPage2, specialDietRemarks: e.target.value })
-                }
-
-              />
+                onChange={(e) => setFormDataPage2({ ...formDataPage2, specialDietRemarks: e.target.value })}
+              ></textarea>
             </li>
-
             <li>
               Alergie:
               <label>
@@ -319,16 +316,11 @@ const PatientAddForm = ({ addPatientHandler, editPatientHandler, patientToEdit }
             <li>
               <label>Alergie uwagi:</label>
               <br />
-              <input
-                type="text"
-                value={formDataPage2.allergiesRemakrs}
-                onChange={(e) =>
-                  setFormDataPage2({ ...formDataPage2, allergiesRemakrs: e.target.value })
-                }
-
-              />
+              <textarea rows="4" cols="50"
+                value={formDataPage2.allergiesRemarks}
+                onChange={(e) => setFormDataPage2({ ...formDataPage2, allergiesRemarks: e.target.value })}
+              ></textarea>
             </li>
-
             {/* Pozostałe pola dla drugiej strony */}
           </ul>
           <button type="button" onClick={handlePreviousPage}>
@@ -343,150 +335,144 @@ const PatientAddForm = ({ addPatientHandler, editPatientHandler, patientToEdit }
       {page === 3 && (
         <div>
           <ul>
-
             <li>
-            Leki:
-              <label>
-                <input
-                  type="checkbox"
-                  checked={formDataPage2.medications}
-                  onChange={(e) => setFormDataPage2({ ...formDataPage2, medications: e.target.checked })}
-                />
-              </label>
-            </li>
-            <li>
-            Operacje:
-              <label>
-                <input
-                  type="checkbox"
-                  checked={formDataPage2.surgerys}
-                  onChange={(e) => setFormDataPage2({ ...formDataPage2, surgerys: e.target.checked })}
-                />
-              </label>
-            </li>
-
-
-            <li>
-            Hospitalizacja:
-              <label>
-                <input
-                  type="checkbox"
-                  checked={formDataPage2.hospitalizations}
-                  onChange={(e) => setFormDataPage2({ ...formDataPage2, hospitalizations: e.target.checked })}
-                />
-              </label>
-            </li>
-
-            <li>
-            Astma:
-              <label>
-                <input
-                  type="checkbox"
-                  checked={formDataPage2.asthma}
-                  onChange={(e) => setFormDataPage2({ ...formDataPage2, asthma: e.target.checked })}
-                />
-              </label>
-            </li>
-
-            <li>
-            Choroby serca:
-              <label>
-                <input
-                  type="checkbox"
-                  checked={formDataPage2.heartDisease}
-                  onChange={(e) => setFormDataPage2({ ...formDataPage2, heartDisease: e.target.checked })}
-                />
-              </label>
-            </li>
-    
-            <li>
-            Rak prostaty:
-              <label>
-                <input
-                  type="checkbox"
-                  checked={formDataPage2.prostateCaner}
-                  onChange={(e) => setFormDataPage2({ ...formDataPage2, prostateCaner: e.target.checked })}
-                />
-              </label>
-            </li>
-
-            <li>
-            Nadciśnienie:
-              <label>
-                <input
-                  type="checkbox"
-                  checked={formDataPage2.hypertension}
-                  onChange={(e) => setFormDataPage2({ ...formDataPage2, hypertension: e.target.checked })}
-                />
-              </label>
-            </li>
-
-            <li>
-            Cukrzyca:
-              <label>
-                <input
-                  type="checkbox"
-                  checked={formDataPage2.diabetes}
-                  onChange={(e) => setFormDataPage2({ ...formDataPage2, diabetes: e.target.checked })}
-                />
-              </label>
-            </li>
-
-            <li>
-            Rak piersi:
-              <label>
-                <input
-                  type="checkbox"
-                  checked={formDataPage2.breastCancer}
-                  onChange={(e) => setFormDataPage2({ ...formDataPage2, breastCancer: e.target.checked })}
-                />
-              </label>
-            </li>
-            <li>
-            Rak jajnika:
-              <label>
-                <input
-                  type="checkbox"
-                  checked={formDataPage2.ovarianCancer}
-                  onChange={(e) => setFormDataPage2({ ...formDataPage2, ovarianCancer: e.target.checked })}
-                />
-              </label>
-            </li>
-     
-            <li>
-            Choroba umysłowa:
-              <label>
-                <input
-                  type="checkbox"
-                  checked={formDataPage2.metalIllness}
-                  onChange={(e) => setFormDataPage2({ ...formDataPage2, metalIllness: e.target.checked })}
-                />
-              </label>
-            </li>
-
-            <li>
-            Inne:
-              <label>
-                <input
-                  type="checkbox"
-                  checked={formDataPage2.other}
-                  onChange={(e) => setFormDataPage2({ ...formDataPage2, other: e.target.checked })}
-                />
-              </label>
-            </li>
-            <li>
-              <label>Inne uwagi:</label>
+              <label>Leki:</label>
               <br />
-              <input
-                type="text"
-                value={formDataPage3.otherRemarks}
-                onChange={(e) =>
-                  setFormDataPage3({ ...formDataPage3, otherRemarks: e.target.value })
-                }
-
+              <textarea rows="4" cols="50"
+                value={formDataPage3.medications}
+                onChange={(e) => setFormDataPage3({ ...formDataPage3, medications: e.target.value })}
               />
             </li>
 
+            <li>
+              <label>Operacje:</label>
+              <br />
+              <textarea rows="4" cols="50"
+                value={formDataPage3.surgeries}
+                onChange={(e) => setFormDataPage3({ ...formDataPage3, surgeries: e.target.value })}
+              />
+            </li>
+
+
+
+
+            <li>
+              Hospitalizacja:
+              <label>
+                <input
+                  type="checkbox"
+                  checked={formDataPage3.hospitalizations}
+                  onChange={(e) => setFormDataPage3({ ...formDataPage3, hospitalizations: e.target.checked })}
+                />
+              </label>
+            </li>
+
+            <li>
+              Astma:
+              <label>
+                <input
+                  type="checkbox"
+                  checked={formDataPage3.asthma}
+                  onChange={(e) => setFormDataPage3({ ...formDataPage3, asthma: e.target.checked })}
+                />
+              </label>
+            </li>
+
+            <li>
+              Choroby serca:
+              <label>
+                <input
+                  type="checkbox"
+                  checked={formDataPage3.heartDisease}
+                  onChange={(e) => setFormDataPage3({ ...formDataPage3, heartDisease: e.target.checked })}
+                />
+              </label>
+            </li>
+
+            <li>
+              Rak prostaty:
+              <label>
+                <input
+                  type="checkbox"
+                  checked={formDataPage3.prostateCancer}
+                  onChange={(e) => setFormDataPage3({ ...formDataPage3, prostateCancer: e.target.checked })}
+                />
+              </label>
+            </li>
+
+            <li>
+              Nadciśnienie:
+              <label>
+                <input
+                  type="checkbox"
+                  checked={formDataPage3.hypertension}
+                  onChange={(e) => setFormDataPage3({ ...formDataPage3, hypertension: e.target.checked })}
+                />
+              </label>
+            </li>
+
+            <li>
+              Cukrzyca:
+              <label>
+                <input
+                  type="checkbox"
+                  checked={formDataPage3.diabetes}
+                  onChange={(e) => setFormDataPage3({ ...formDataPage3, diabetes: e.target.checked })}
+                />
+              </label>
+            </li>
+
+            <li>
+              Rak piersi:
+              <label>
+                <input
+                  type="checkbox"
+                  checked={formDataPage3.breastCancer}
+                  onChange={(e) => setFormDataPage3({ ...formDataPage3, breastCancer: e.target.checked })}
+                />
+              </label>
+            </li>
+            <li>
+              Rak jajnika:
+              <label>
+                <input
+                  type="checkbox"
+                  checked={formDataPage3.ovarianCancer}
+                  onChange={(e) => setFormDataPage3({ ...formDataPage3, ovarianCancer: e.target.checked })}
+                />
+              </label>
+            </li>
+
+            <li>
+              Choroba umysłowa:
+              <label>
+                <input
+                  type="checkbox"
+                  checked={formDataPage3.metalIllness}
+                  onChange={(e) => setFormDataPage3({ ...formDataPage3, metalIllness: e.target.checked })}
+                />
+              </label>
+            </li>
+
+            <li>
+              Inne:
+              <label>
+                <input
+                  type="checkbox"
+                  checked={formDataPage3.other}
+                  onChange={(e) => setFormDataPage3({ ...formDataPage3, other: e.target.checked })}
+                />
+              </label>
+            </li>
+
+            <li>
+              <label>Inne uwagi:</label>
+              <br />
+              <textarea rows="4" cols="50"
+                value={formDataPage3.otherRemarks}
+                onChange={(e) => setFormDataPage3({ ...formDataPage3, otherRemarks: e.target.value })}
+              />
+            </li>
             {/* Pozostałe pola dla trzeciej strony */}
           </ul>
           <button type="button" onClick={handlePreviousPage}>

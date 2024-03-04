@@ -35,7 +35,7 @@ namespace Przychodnia.Controllers
                 return BadRequest(ModelState);
             }
             var id = _patientService.Create(dto);
-            return Created($"/api/patient/{id}", null);
+            return Created($"/api/patient/{id}", new { id = id });
 
         }
 

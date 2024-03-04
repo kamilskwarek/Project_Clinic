@@ -9,7 +9,7 @@ const JobPositionAddForm = ({ addJobPositionHandler, editJobPositionHandler, job
     e.preventDefault();
     const jobPositionData = {
       jobTitle,
-      jobDescription,
+      jobDescription
     };
 
     if (jobPositionToEdit) {

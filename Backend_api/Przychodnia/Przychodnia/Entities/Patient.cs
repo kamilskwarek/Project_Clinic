@@ -27,33 +27,33 @@ namespace Przychodnia.Entities
 
         // pytania o zdrowie tak/nie
         public bool Pregnant { get; set; }
-        public string PregnantRemakrs { get; set; }
+        public string PregnantRemarks { get; set; }
 
         public bool Smoking { get; set; }
-        public string SmokingRemakrs { get; set; }
+        public string SmokingRemarks { get; set; }
 
         public bool Alcohol { get; set; }
-        public string AlcoholRemakrs { get; set; }
+        public string AlcoholRemarks { get; set; }
 
         public bool SpecialDiet { get; set; }
-        public string SpecialDietRemakrs { get; set; }
+        public string SpecialDietRemarks { get; set; }
 
         public bool Allergies { get; set; }
-        public string AllergiesRemakrs { get; set; }
+        public string AllergiesRemarks { get; set; }
 
 
         //pytania
         public string Medications { get; set; }
 
-        public string Surgerys { get; set; }
+        public string Surgeries { get; set; }
 
-        public string Hospitalizations { get; set; }
+        public bool Hospitalizations { get; set; }
 
 
         // historia rodziny
         public bool Asthma { get; set;}
         public bool HeartDisease {get; set;}
-        public bool ProstateCaner {get; set;}
+        public bool prostateCancer {get; set;}
         public bool Hypertension { get; set;}
         public bool Diabetes { get; set;}
         public bool BreastCancer {get; set;}

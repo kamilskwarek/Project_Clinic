@@ -29,7 +29,7 @@ const PatientList = ({ patients, onAddButtonClick, deletePatient, editPatient })
   return (
     <div className="PatientList">
       <h2>Lista pacjentów:</h2>
-      <button onClick={onAddButtonClick}>Dodaj Pacjenta</button>
+      <button onClick={onAddButtonClick}>Dodaj pacjenta</button>
 
       <div className="searchBar">
         <select onChange={handleSearchByChange} value={searchBy}>

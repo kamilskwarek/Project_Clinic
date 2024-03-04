@@ -11,7 +11,7 @@ namespace Przychodnia
             CreateMap<JobPosition, JobPositionDto>();
 
 
-            CreateMap<CreateJobPosiotionDto, JobPosition>();
+            CreateMap<CreateJobPositionDto, JobPosition>();
 
             CreateMap<UpdateJobPositionDto, JobPosition>();
 

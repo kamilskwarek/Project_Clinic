@@ -32,6 +32,7 @@ export const updateEmployeeInAPI = async (
     if (!response.ok) {
       throw new Error('Failed to update employee');
     }
+    console.log("Zaktualizowano pracownika: " + response.ok)
 
     await refreshEmployees();
     setIsEmployeeFormVisible(false);
@@ -42,7 +43,7 @@ export const updateEmployeeInAPI = async (
 };
 
 
-export const addEmployeeToAPI = async (newEmployee, setIsEmployeeFormVisible, callback) => {
+export const addEmployeeToAPI = async (newEmployee, setIsEmployeeFormVisible, refreshEmployees) => {
   try {
     const response = await fetch('https://localhost:7137/api/employee/', {  
       method: 'POST',
@@ -61,14 +62,15 @@ export const addEmployeeToAPI = async (newEmployee, setIsEmployeeFormVisible, ca
   } catch (error) {
     console.error('Błąd przy dodawaniu pracownika:', error.message);
   }
+  await refreshEmployees();
+
   setIsEmployeeFormVisible(false); 
-  callback();
 };
 
 
 
 
-export const deleteEmployeeFromAPI = async (employeeId, callback) => {
+export const deleteEmployeeFromAPI = async (employeeId) => {
   try {
       const response = await fetch(`https://localhost:7137/api/employee/${employeeId}`, {
           method: 'DELETE',
@@ -82,7 +84,6 @@ export const deleteEmployeeFromAPI = async (employeeId, callback) => {
       }
 
       console.log('Usunięto pracownika:', employeeId);
-      callback();
   } catch (error) {
       console.error('Błąd przy usuwaniu pracownika:', error.message);
   }

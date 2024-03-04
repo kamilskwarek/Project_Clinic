@@ -55,31 +55,31 @@ namespace Przychodnia.Models.Patient
         public bool? Pregnant { get; set; }
 
         [MaxLength(100)]
-        public string? PregnantRemakrs { get; set; }
+        public string? PregnantRemarks { get; set; }
 
         
         public bool? Smoking { get; set; }
 
         [MaxLength(100)]
-        public string? SmokingRemakrs { get; set; }
+        public string? SmokingRemarks { get; set; }
 
         
         public bool? Alcohol { get; set; }
 
         [MaxLength(100)]
-        public string? AlcoholRemakrs { get; set; }
+        public string? AlcoholRemarks { get; set; }
 
         
         public bool? SpecialDiet { get; set; }
 
         [MaxLength(100)]
-        public string? SpecialDietRemakrs { get; set; }
+        public string? SpecialDietRemarks { get; set; }
 
         
         public bool? Allergies { get; set; }
 
         [MaxLength(100)]
-        public string? AllergiesRemakrs { get; set; }
+        public string? AllergiesRemarks { get; set; }
 
 
         //pytania
@@ -87,10 +87,9 @@ namespace Przychodnia.Models.Patient
         public string? Medications { get; set; }
 
         [MaxLength(250)]
-        public string? Surgerys { get; set; }
+        public string? Surgeries { get; set; }
 
-        [MaxLength(250)]
-        public string? Hospitalizations { get; set; }
+        public bool? Hospitalizations { get; set; }
 
 
         // historia rodziny
@@ -99,7 +98,7 @@ namespace Przychodnia.Models.Patient
         
         public bool? HeartDisease { get; set; }
         
-        public bool? ProstateCaner { get; set; }
+        public bool? prostateCancer { get; set; }
         
         public bool? Hypertension { get; set; }
         

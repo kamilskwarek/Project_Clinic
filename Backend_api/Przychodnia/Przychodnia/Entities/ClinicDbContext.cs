@@ -162,7 +162,7 @@ namespace Przychodnia.Entities
                  .Property(p => p.Pregnant)
                  .IsRequired();
             modelBuilder.Entity<Patient>()
-                 .Property(p => p.PregnantRemakrs)
+                 .Property(p => p.PregnantRemarks)
                   .HasMaxLength(100)
                 .IsRequired(false);
 
@@ -171,7 +171,7 @@ namespace Przychodnia.Entities
                  .Property(p => p.Smoking)
                 .IsRequired();
             modelBuilder.Entity<Patient>()
-                 .Property(p => p.SmokingRemakrs)
+                 .Property(p => p.SmokingRemarks)
                   .HasMaxLength(100)
                 .IsRequired(false);
 
@@ -180,7 +180,7 @@ namespace Przychodnia.Entities
                 .Property(p => p.Alcohol)
                 .IsRequired();
             modelBuilder.Entity<Patient>()
-                .Property(p => p.AlcoholRemakrs)
+                .Property(p => p.AlcoholRemarks)
                 .HasMaxLength(100)
                 .IsRequired(false);
 
@@ -189,7 +189,7 @@ namespace Przychodnia.Entities
                 .Property(p => p.SpecialDiet)
                 .IsRequired();
             modelBuilder.Entity<Patient>()
-                .Property(p => p.SpecialDietRemakrs)
+                .Property(p => p.SpecialDietRemarks)
                  .HasMaxLength(100)
                 .IsRequired(false);
 
@@ -198,7 +198,7 @@ namespace Przychodnia.Entities
                  .Property(p => p.Allergies)
                  .IsRequired();
             modelBuilder.Entity<Patient>()
-                .Property(p => p.AllergiesRemakrs)
+                .Property(p => p.AllergiesRemarks)
                    .HasMaxLength(100)
                 .IsRequired(false);
 
@@ -209,13 +209,12 @@ namespace Przychodnia.Entities
               .HasMaxLength(250)
               .IsRequired(false);
             modelBuilder.Entity<Patient>()
-              .Property(p => p.Surgerys)
+              .Property(p => p.Surgeries)
               .HasMaxLength(250)
               .IsRequired(false);
             modelBuilder.Entity<Patient>()
               .Property(p => p.Hospitalizations)
-              .HasMaxLength(250)
-              .IsRequired(false);
+              .IsRequired();
 
             // historia rodziny
             modelBuilder.Entity<Patient>()
@@ -225,7 +224,7 @@ namespace Przychodnia.Entities
                 .Property(p => p.HeartDisease)
                 .IsRequired();
             modelBuilder.Entity<Patient>()
-                .Property(p => p.ProstateCaner)
+                .Property(p => p.prostateCancer)
                 .IsRequired();
             modelBuilder.Entity<Patient>()
                 .Property(p => p.Hypertension)

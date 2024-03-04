@@ -12,7 +12,7 @@ using Przychodnia.Entities;
 namespace Przychodnia.Migrations
 {
     [DbContext(typeof(ClinicDbContext))]
-    [Migration("20240303143551_init")]
+    [Migration("20240304203919_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -224,14 +224,14 @@ namespace Przychodnia.Migrations
                     b.Property<bool>("Alcohol")
                         .HasColumnType("bit");
 
-                    b.Property<string>("AlcoholRemakrs")
+                    b.Property<string>("AlcoholRemarks")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("Allergies")
                         .HasColumnType("bit");
 
-                    b.Property<string>("AllergiesRemakrs")
+                    b.Property<string>("AllergiesRemarks")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -275,9 +275,8 @@ namespace Przychodnia.Migrations
                     b.Property<bool>("HeartDisease")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Hospitalizations")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                    b.Property<bool>("Hospitalizations")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("Hypertension")
                         .HasColumnType("bit");
@@ -322,24 +321,21 @@ namespace Przychodnia.Migrations
                     b.Property<bool>("Pregnant")
                         .HasColumnType("bit");
 
-                    b.Property<string>("PregnantRemakrs")
+                    b.Property<string>("PregnantRemarks")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<bool>("ProstateCaner")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("Smoking")
                         .HasColumnType("bit");
 
-                    b.Property<string>("SmokingRemakrs")
+                    b.Property<string>("SmokingRemarks")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("SpecialDiet")
                         .HasColumnType("bit");
 
-                    b.Property<string>("SpecialDietRemakrs")
+                    b.Property<string>("SpecialDietRemarks")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -348,9 +344,12 @@ namespace Przychodnia.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("Surgerys")
+                    b.Property<string>("Surgeries")
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
+
+                    b.Property<bool>("prostateCancer")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 

@@ -26,15 +26,15 @@ namespace Przychodnia.Controllers
             return NotFound();
         }
         [HttpPost]
-        public ActionResult CreateJobPosiotion([FromBody]CreateJobPosiotionDto dto)
+        public ActionResult CreateJobPosition([FromBody] CreateJobPositionDto dto)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
             var id = _jobPositionService.Create(dto);
-            return Created($"/api/jobpositon/{id}", null);
+            return Created($"/api/jobposition/{id}", new { id = id });
         }
 
         [HttpPut("{id}")]

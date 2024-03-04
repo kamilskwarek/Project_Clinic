@@ -33,7 +33,8 @@ export const loadClinics = async () => {
       if (!response.ok) {
         throw new Error('Failed to update clinic');
       }
-  
+      console.log("Zaktualizowano placówkę: " + response.ok)
+      
       await refreshClinic();
       setIsClinicFormVisible(false);
       setClinicToEdit(null);
@@ -42,7 +43,7 @@ export const loadClinics = async () => {
     }
   };
 
-  export const addClinicToAPI = async (newClinic, setIsClinicFormVisible, callback) => {
+  export const addClinicToAPI = async (newClinic, setIsClinicFormVisible, refreshClinics) => {
     try {
       const response = await fetch('https://localhost:7137/api/clinic/', {  
         method: 'POST',
@@ -61,11 +62,11 @@ export const loadClinics = async () => {
     } catch (error) {
       console.error('Błąd przy dodawaniu placówki:', error.message);
     }
+    await refreshClinics();
     setIsClinicFormVisible(false); 
-    callback();
   };
 
-  export const deleteClinicFromAPI = async (clinicId, callback) => {
+  export const deleteClinicFromAPI = async (clinicId) => {
     try {
         const response = await fetch(`https://localhost:7137/api/clinic/${clinicId}`, {
             method: 'DELETE',
@@ -79,7 +80,6 @@ export const loadClinics = async () => {
         }
   
         console.log('Usunięto placówkę:', clinicId);
-        callback();
     } catch (error) {
         console.error('Błąd przy usuwaniu placówki:', error.message);
     }

@@ -140,9 +140,9 @@ namespace Przychodnia.Services
                 patient.Pregnant = dto.Pregnant.Value;
             }
 
-            if (!string.IsNullOrEmpty(dto.PregnantRemakrs))
+            if (!string.IsNullOrEmpty(dto.PregnantRemarks))
             {
-                patient.PregnantRemakrs = dto.PregnantRemakrs;
+                patient.PregnantRemarks = dto.PregnantRemarks;
             }
 
             if (dto.Smoking.HasValue)
@@ -150,9 +150,9 @@ namespace Przychodnia.Services
                 patient.Smoking = dto.Smoking.Value;
             }
 
-            if (!string.IsNullOrEmpty(dto.SmokingRemakrs))
+            if (!string.IsNullOrEmpty(dto.SmokingRemarks))
             {
-                patient.SmokingRemakrs = dto.SmokingRemakrs;
+                patient.SmokingRemarks = dto.SmokingRemarks;
             }
 
             if (dto.Alcohol.HasValue)
@@ -160,9 +160,9 @@ namespace Przychodnia.Services
                 patient.Alcohol = dto.Alcohol.Value;
             }
 
-            if (!string.IsNullOrEmpty(dto.AlcoholRemakrs))
+            if (!string.IsNullOrEmpty(dto.AlcoholRemarks))
             {
-                patient.AlcoholRemakrs = dto.AlcoholRemakrs;
+                patient.AlcoholRemarks = dto.AlcoholRemarks;
             }
 
             if (dto.SpecialDiet.HasValue)
@@ -170,9 +170,9 @@ namespace Przychodnia.Services
                 patient.SpecialDiet = dto.SpecialDiet.Value;
             }
 
-            if (!string.IsNullOrEmpty(dto.SpecialDietRemakrs))
+            if (!string.IsNullOrEmpty(dto.SpecialDietRemarks))
             {
-                patient.SpecialDietRemakrs = dto.SpecialDietRemakrs;
+                patient.SpecialDietRemarks = dto.SpecialDietRemarks;
             }
 
             if (dto.Allergies.HasValue)
@@ -180,9 +180,9 @@ namespace Przychodnia.Services
                 patient.Allergies = dto.Allergies.Value;
             }
 
-            if (!string.IsNullOrEmpty(dto.AllergiesRemakrs))
+            if (!string.IsNullOrEmpty(dto.AllergiesRemarks))
             {
-                patient.AllergiesRemakrs = dto.AllergiesRemakrs;
+                patient.AllergiesRemarks = dto.AllergiesRemarks;
             }
             //pytania
 
@@ -191,14 +191,14 @@ namespace Przychodnia.Services
                 patient.Medications = dto.Medications;
             }
 
-            if (!string.IsNullOrEmpty(dto.Surgerys))
+            if (!string.IsNullOrEmpty(dto.Surgeries))
             {
-                patient.Surgerys = dto.Surgerys;
+                patient.Surgeries = dto.Surgeries;
             }
 
-            if (!string.IsNullOrEmpty(dto.Hospitalizations))
+            if (dto.Hospitalizations.HasValue)
             {
-                patient.Hospitalizations = dto.Hospitalizations;
+                patient.Hospitalizations = dto.Hospitalizations.Value;
             }
             // historia rodziny
 
@@ -212,9 +212,9 @@ namespace Przychodnia.Services
                 patient.HeartDisease = dto.HeartDisease.Value;
             }
 
-            if (dto.ProstateCaner.HasValue)
+            if (dto.prostateCancer.HasValue)
             {
-                patient.ProstateCaner = dto.ProstateCaner.Value;
+                patient.prostateCancer = dto.prostateCancer.Value;
             }
 
             if (dto.Hypertension.HasValue)

@@ -4,7 +4,7 @@ const EmployeeList = ({ employees, onAddButtonClick, deleteEmployee, editEmploye
   const [searchText, setSearchText] = useState('');
   const [searchBy, setSearchBy] = useState('firstName');
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [itemsPerPage] = useState(5);
   const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
@@ -28,6 +28,8 @@ const EmployeeList = ({ employees, onAddButtonClick, deleteEmployee, editEmploye
   const handlePaginationChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
+  
 
   // Obliczanie indeksów początkowego i końcowego elementu na bieżącej stronie
   const indexOfLastItem = currentPage * itemsPerPage;

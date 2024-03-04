@@ -41,7 +41,7 @@ namespace Przychodnia.Controllers
             }
             var id = _clinicService.Create(dto);
 
-            return Created($"/api/clinic/{id}", null);
+            return Created($"/api/clinic/{id}", new { id = id });
         }
 
         [HttpPut("{id}")]
