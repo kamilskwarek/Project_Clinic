@@ -63,6 +63,68 @@ body {
   width: 85%;
 }
 
+/*visit*/
+.VisitAddForm ul{
+  list-style: none;
+  padding: 0; 
+
+}
+.VisitAddForm Input{
+  border: none;
+  border-bottom: 2px solid rgb(185, 185, 185);
+  margin-bottom: 10px;
+ 
+}
+.VisitAddForm Input:focus{
+  border: none;
+  outline-width: 0;
+  border-bottom: 2px solid #006a6a;
+  transition: 0.5s;
+}
+.VisitList {
+  width: fit-content;
+  font-size: 20px;
+}
+.VisitList ul{
+  list-style: none;
+  padding: 0;
+}
+.VisitList li{
+  border-bottom: 2px solid grey;
+  border-left: 2px solid grey;
+
+
+}
+.VisitList p{
+  display: table-cell;
+  min-width: 150px;
+  padding: 5px; 
+  border-right: 2px solid grey ;
+ 
+  word-wrap:normal;
+}
+.VisitList button{
+  border:  1px solid #006a6a;
+  border-radius: 7px;
+  font-size: 20px;
+
+}
+
+.searchBar input{
+  margin-right: 20px !important;
+}
+
+
+
+/* Stylizacja rozwijanego selecta po aktywowaniu */
+select.expanded {
+  height: 100px; /* Automatycznie dostosuj wysokość po rozwinięciu */
+}
+
+.timeParagraph{
+  min-width: 200px !important;
+}
+
 /*employee*/
 .EmployeeAddForm ul{
   list-style: none;
@@ -253,6 +315,7 @@ body {
   font-size: 20px;
 
 }
+
 /* remaining */
 
 .idParagraph{
@@ -277,3 +340,12 @@ body {
   vertical-align: middle;
 }
 
+.pagination{
+  display: flex;
+  justify-content: center;
+}
+.pagination li{
+  border-bottom: none !important;
+    border-left: none !important;
+    margin-right: 5px;
+}

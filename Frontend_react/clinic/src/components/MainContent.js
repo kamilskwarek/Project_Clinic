@@ -7,11 +7,16 @@ import ClinicList from './Clinic/ClinicList';
 import ClinicAddForm from './Clinic/ClinicAddForm';
 import PatientList from './Patient/PatientList';
 import PatientAddForm from './Patient/PatientAddForm';
+import VisitList from './Visit/VisitList';
+import VisitAddForm from './Visit/VisitAddForm';
+
 
 import { loadEmployees, updateEmployeeInAPI, refreshEmployees, showEmployeeAddForm, handleEditEmployee, handleDeleteEmployee } from '../API/EmployeeAPI';
 import { loadJobPositions, updateJobPositionInAPI, refreshJobPositions, showJobPositionAddForm, handleEditJobPosition, handleDeleteJobPosition } from '../API/JobPositionAPI';
 import { loadClinics, updateClinicInAPI, refreshClinics, showClinicAddForm, handleEditClinic, handleDeleteClinic } from '../API/ClinicAPI';
 import { loadPatients, updatePatientInAPI, refreshPatients, showPatientAddForm, handleEditPatient, handleDeletePatient } from '../API/PatientAPI';
+import { loadVisits, updateVisitInAPI, refreshVisits, showVisitAddForm, handleEditVisit, handleDeleteVisit } from '../API/VisitAPI';
+
 
 
 
@@ -21,6 +26,8 @@ const MainContent = ({ activeMenuItem,
   addJobPositionToAPI, isJobPositionFormVisible, setIsJobPositionFormVisible, deleteJobPositionFromAPI,
   addClinicToAPI, isClinicFormVisible, setIsClinicFormVisible, deleteClinicFromAPI,
   addPatientToAPI, isPatientFormVisible, setIsPatientFormVisible, deletePatientFromAPI,
+  addVisitToAPI, isVisitFormVisible, setIsVisitFormVisible, deleteVisitFromAPI,
+
 
 
 }) => {
@@ -37,15 +44,18 @@ const MainContent = ({ activeMenuItem,
   const [patients, setPatients] = useState([]);
   const [patientToEdit, setPatientToEdit] = useState(null);
 
+  const [visits, setVisits] = useState([]);
+  const [visitToEdit, setVisitToEdit] = useState(null);
 
-// employee
+
+  // employee
 
   const refreshEmployeeList = () => refreshEmployees(setEmployees, loadEmployees);
   const showEmployeeForm = () => showEmployeeAddForm(setIsEmployeeFormVisible);
   const editEmployee = (employee) => handleEditEmployee(employee, setEmployeeToEdit, setIsEmployeeFormVisible);
   const deleteEmployee = (id) => handleDeleteEmployee(id, deleteEmployeeFromAPI, setEmployees, loadEmployees);
 
-//jobposition
+  //jobposition
 
   const refreshJobPositionList = () => refreshJobPositions(setJobPositions, loadJobPositions);
   const showJobPositionForm = () => showJobPositionAddForm(setIsJobPositionFormVisible);
@@ -66,11 +76,27 @@ const MainContent = ({ activeMenuItem,
   const editPatient = (patient) => handleEditPatient(patient, setPatientToEdit, setIsPatientFormVisible);
   const deletePatient = (id) => handleDeletePatient(id, deletePatientFromAPI, setPatients, loadPatients);
 
+  //visit
+  const refreshVisitList = () => refreshVisits(setVisits, loadVisits);
+  const showVisitForm = () => showVisitAddForm(setIsVisitFormVisible);
+  const editVisit = (visit) => handleEditVisit(visit, setVisitToEdit, setIsVisitFormVisible);
+  const deleteVisit = (id) => handleDeleteVisit(id, deleteVisitFromAPI, setVisits, loadVisits);
+
+  //visit
+  useEffect(() => {
+    if (activeMenuItem === 1) {
+      refreshVisitList();
+    }
+  }, [activeMenuItem]);
+
+  useEffect(() => {
+    if (!isVisitFormVisible) {
+      setVisitToEdit(null);
+    }
+  }, [isVisitFormVisible]);
 
 
-
-// employee
-
+  // employee
   useEffect(() => {
     if (activeMenuItem === 2) {
       refreshEmployeeList();
@@ -83,7 +109,21 @@ const MainContent = ({ activeMenuItem,
     }
   }, [isEmployeeFormVisible]);
 
-//jobposition
+  //patient
+  useEffect(() => {
+    if (activeMenuItem === 3) {
+      refreshPatientList();
+    }
+  }, [activeMenuItem]);
+
+  useEffect(() => {
+    if (!isPatientFormVisible) {
+      setPatientToEdit(null);
+    }
+  }, [isPatientFormVisible]);
+
+
+  //jobposition
   useEffect(() => {
     if (activeMenuItem === 4) {
       refreshJobPositionList();
@@ -110,40 +150,54 @@ const MainContent = ({ activeMenuItem,
   }, [isClinicFormVisible]);
 
 
-  //patient
-  useEffect(() => {
-    if (activeMenuItem === 3) {
-      refreshPatientList();
-    }
-  }, [activeMenuItem]);
 
-  useEffect(() => {
-    if (!isPatientFormVisible) {
-      setPatientToEdit(null);
-    }
-  }, [isPatientFormVisible]);
+
 
   return (
     <div className="main-content">
-      {activeMenuItem === 1 && <div>Tu będzie zawartość dla linka 1 (Strona główna)</div>}
-      {/* employee */}
-      {activeMenuItem === 2 && !isEmployeeFormVisible && (
-        <EmployeeList 
-          employees={employees} 
-          onAddButtonClick={showEmployeeForm}
-          deleteEmployee={deleteEmployee} 
-          editEmployee={editEmployee} 
+      {/*visit*/}
+      {activeMenuItem === 1 && !isVisitFormVisible && (
+        <VisitList
+          visits={visits}
+          onAddButtonClick={showVisitForm}
+          deleteVisit={deleteVisit}
+          editVisit={editVisit}
         />
       )}
-      
+
+      {activeMenuItem === 1 && isVisitFormVisible && (
+        <VisitAddForm
+          addVisitHandler={(visit) => addVisitToAPI(visit, () => refreshVisitList())}
+          editVisitHandler={(updatedVisit) =>
+            updateVisitInAPI(
+              visitToEdit.id,
+              updatedVisit,
+              () => refreshVisitList(),
+              setIsVisitFormVisible,
+              setVisitToEdit
+            )
+          }
+          visitToEdit={visitToEdit}
+        />
+      )}
+      {/* employee */}
+      {activeMenuItem === 2 && !isEmployeeFormVisible && (
+        <EmployeeList
+          employees={employees}
+          onAddButtonClick={showEmployeeForm}
+          deleteEmployee={deleteEmployee}
+          editEmployee={editEmployee}
+        />
+      )}
+
       {activeMenuItem === 2 && isEmployeeFormVisible && (
-        <EmployeeAddForm 
-          addEmployeeHandler={(employee) => addEmployeeToAPI(employee, () => refreshEmployeeList())} 
-          editEmployeeHandler={(updatedEmployee) => 
+        <EmployeeAddForm
+          addEmployeeHandler={(employee) => addEmployeeToAPI(employee, () => refreshEmployeeList())}
+          editEmployeeHandler={(updatedEmployee) =>
             updateEmployeeInAPI(
               employeeToEdit.id,
               updatedEmployee,
-              () => refreshEmployeeList(), 
+              () => refreshEmployeeList(),
               setIsEmployeeFormVisible,
               setEmployeeToEdit
             )
@@ -153,22 +207,22 @@ const MainContent = ({ activeMenuItem,
       )}
       {/* Patient */}
       {activeMenuItem === 3 && !isPatientFormVisible && (
-        <PatientList 
-          patients={patients} 
+        <PatientList
+          patients={patients}
           onAddButtonClick={showPatientForm}
-          deletePatient={deletePatient} 
-          editPatient={editPatient} 
+          deletePatient={deletePatient}
+          editPatient={editPatient}
         />
       )}
-      
+
       {activeMenuItem === 3 && isPatientFormVisible && (
-        <PatientAddForm 
-          addPatientHandler={(patient) => addPatientToAPI(patient, () => refreshPatientList())} 
-          editPatientHandler={(updatedPatient) => 
+        <PatientAddForm
+          addPatientHandler={(patient) => addPatientToAPI(patient, () => refreshPatientList())}
+          editPatientHandler={(updatedPatient) =>
             updatePatientInAPI(
               patientToEdit.id,
               updatedPatient,
-              () => refreshPatientList(), 
+              () => refreshPatientList(),
               setIsPatientFormVisible,
               setPatientToEdit
             )
@@ -178,22 +232,22 @@ const MainContent = ({ activeMenuItem,
       )}
       {/* jobpostion */}
       {activeMenuItem === 4 && !isJobPositionFormVisible && (
-        <JobPositionList 
-          jobPositions={jobPositions} 
+        <JobPositionList
+          jobPositions={jobPositions}
           onAddButtonClick={showJobPositionForm}
-          deleteJobPosition={deleteJobPosition} 
-          editJobPosition={editJobPosition} 
+          deleteJobPosition={deleteJobPosition}
+          editJobPosition={editJobPosition}
         />
       )}
-      
+
       {activeMenuItem === 4 && isJobPositionFormVisible && (
-        <JobPositionAddForm 
-          addJobPositionHandler={(jobPosition) => addJobPositionToAPI(jobPosition, () => refreshJobPositionList())} 
-          editJobPositionHandler={(updatedJobPosition) => 
+        <JobPositionAddForm
+          addJobPositionHandler={(jobPosition) => addJobPositionToAPI(jobPosition, () => refreshJobPositionList())}
+          editJobPositionHandler={(updatedJobPosition) =>
             updateJobPositionInAPI(
               jobPositionToEdit.id,
               updatedJobPosition,
-              () => refreshJobPositionList(), 
+              () => refreshJobPositionList(),
               setIsJobPositionFormVisible,
               setJobPositionToEdit
             )
@@ -204,22 +258,22 @@ const MainContent = ({ activeMenuItem,
 
       {/* clinic */}
       {activeMenuItem === 5 && !isClinicFormVisible && (
-        <ClinicList 
-          clinics={clinics} 
+        <ClinicList
+          clinics={clinics}
           onAddButtonClick={showClinicForm}
-          deleteClinic={deleteClinic} 
-          editClinic={editClinic} 
+          deleteClinic={deleteClinic}
+          editClinic={editClinic}
         />
       )}
-      
+
       {activeMenuItem === 5 && isClinicFormVisible && (
-        <ClinicAddForm 
-          addClinicHandler={(clinic) => addClinicToAPI(clinic, () => refreshClinicList())} 
-          editClinicHandler={(updatedClinic) => 
+        <ClinicAddForm
+          addClinicHandler={(clinic) => addClinicToAPI(clinic, () => refreshClinicList())}
+          editClinicHandler={(updatedClinic) =>
             updateClinicInAPI(
               clinicToEdit.id,
               updatedClinic,
-              () => refreshClinicList(), 
+              () => refreshClinicList(),
               setIsClinicFormVisible,
               setClinicToEdit
             )

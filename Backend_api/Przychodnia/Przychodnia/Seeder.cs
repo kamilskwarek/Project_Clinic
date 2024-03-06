@@ -1,4 +1,5 @@
 ﻿using Przychodnia.Entities;
+using System;
 using System.Linq;
 
 namespace Przychodnia
@@ -198,39 +199,31 @@ namespace Przychodnia
 
         private IEnumerable<Visit> GetVisits()
         {
-            var visits = new List<Visit>
-            {
-                 new Visit
-                {
-                    VisitDate = new DateTime(2024, 2, 1),
-                    StartTime = new TimeSpan(10, 0, 0),
-                    EndTime = new TimeSpan(11, 0, 0),
-                    Notes = "Regular checkup",
-                    EmployeeId = 1, // ID pracownika
-                    PatientId = 1 // ID pacjenta
-                },
-                new Visit
-                {
-                    VisitDate = new DateTime(2024, 2, 5),
-                    StartTime = new TimeSpan(14, 30, 0),
-                    EndTime = new TimeSpan(15, 30, 0),
-                    Notes = "Follow-up appointment",
-                    EmployeeId = 2, // ID pracownika
-                    PatientId = 2 // ID pacjenta
-                },
-                new Visit
-                {
+            var visits = new List<Visit>();
 
-                    VisitDate = new DateTime(2024, 2, 10),
-                    StartTime = new TimeSpan(9, 0, 0),
-                    EndTime = new TimeSpan(10, 0, 0),
-                    Notes = "Treatment discussion",
-                    EmployeeId = 3, // ID pracownika
-                    PatientId = 3 // ID pacjenta
-                }
-            };
+            // Dzisiejsza data
+            DateTime startDate = DateTime.Today;
+            // Liczba dni do przodu
+            int daysToAdd = 3;
+
+            for (int i = 0; i < 5; i++)
+            {
+                var visit = new Visit
+                {
+                    VisitDate = startDate.AddDays(i % daysToAdd),
+                    StartTime = new TimeSpan(10 + i, 0, 0), // Przykładowy czas rozpoczęcia, zmieniony dla różnorodności
+                    EndTime = new TimeSpan(11 + i, 0, 0), // Przykładowy czas zakończenia, zmieniony dla różnorodności
+                    Notes = $"Visit {i + 1} notes",
+                    EmployeeId = (i % 3) + 1, // Przykładowy ID pracownika, zmieniony dla różnorodności
+                    PatientId = (i % 3) + 1 // Przykładowy ID pacjenta, zmieniony dla różnorodności
+                };
+                visits.Add(visit);
+            }
+
             return visits;
         }
+
+
 
         private IEnumerable<Employee> GetEmployees()
         {

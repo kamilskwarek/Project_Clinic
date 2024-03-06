@@ -1,21 +1,34 @@
 import React, { useState, useEffect } from 'react';
 
-const EmployeeList = ({ employees, onAddButtonClick, deleteEmployee, editEmployee }) => {
+const EmployeeList = ({ employees, onAddButtonClick, deleteEmployee, editEmployee, resetPage }) => {
   const [searchText, setSearchText] = useState('');
   const [searchBy, setSearchBy] = useState('firstName');
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5);
+  const [itemsPerPage] = useState(10);
   const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
-    setSearchResults(
-      employees.filter((employee) => {
-        const value = String(employee[searchBy] || '').toLowerCase();
-        return value.includes(searchText.toLowerCase());
-      })
-    );
-    setCurrentPage(1); // Resetuj stronę przy każdej zmianie wyników wyszukiwania
-  }, [searchText, searchBy, employees]);
+    if (resetPage) {
+      setCurrentPage(1);
+    }
+  }, [resetPage]);
+
+  useEffect(() => {
+    const filteredResults = employees.filter((employee) => {
+      const value = String(employee[searchBy] || '').toLowerCase();
+      return value.includes(searchText.toLowerCase());
+    });
+
+    const newTotalPages = Math.ceil(filteredResults.length / itemsPerPage);
+    setSearchResults(filteredResults);
+    setCurrentPage(prevPage => {
+      if (prevPage > newTotalPages) {
+        return 1;
+      }
+      return prevPage;
+    });
+  }, [searchText, searchBy, employees, itemsPerPage]);
+
 
   const handleSearchChange = (e) => {
     setSearchText(e.target.value);
@@ -29,17 +42,15 @@ const EmployeeList = ({ employees, onAddButtonClick, deleteEmployee, editEmploye
     setCurrentPage(pageNumber);
   };
 
-  
+  const handleDeleteEmployee = (employeeId) => {
+    deleteEmployee(employeeId);
+    const newTotalPages = Math.ceil((searchResults.length - 1) / itemsPerPage);
+    setCurrentPage(prevPage => Math.min(prevPage, newTotalPages));
+  };
 
-  // Obliczanie indeksów początkowego i końcowego elementu na bieżącej stronie
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-
-  // Wybieranie wyników do wyświetlenia na bieżącej stronie
   const currentItems = searchResults.slice(indexOfFirstItem, indexOfLastItem);
-
-  // Obliczanie liczby stron paginacji na podstawie liczby wyników
-  const totalPages = Math.ceil(searchResults.length / itemsPerPage);
 
   return (
     <div className="EmployeeList">
@@ -54,10 +65,10 @@ const EmployeeList = ({ employees, onAddButtonClick, deleteEmployee, editEmploye
           <option value="pesel">Pesel</option>
           <option value="phoneNumber">Nr. telefonu</option>
         </select>
-        <input 
-          type="text" 
-          placeholder="Wyszukaj..." 
-          value={searchText} 
+        <input
+          type="text"
+          placeholder="Wyszukaj..."
+          value={searchText}
           onChange={handleSearchChange}
         />
       </div>
@@ -85,8 +96,8 @@ const EmployeeList = ({ employees, onAddButtonClick, deleteEmployee, editEmploye
                 Edytuj
               </button>
             </p>
-            <p  className='buttonParagraph'>
-              <button onClick={() => deleteEmployee(employee.id)}>
+            <p className='buttonParagraph'>
+              <button onClick={() => handleDeleteEmployee(employee.id)}>
                 Usuń
               </button>
             </p>
@@ -95,11 +106,22 @@ const EmployeeList = ({ employees, onAddButtonClick, deleteEmployee, editEmploye
       </ul>
       {searchResults.length > itemsPerPage && (
         <ul className="pagination">
-          {Array.from({ length: totalPages }).map((_, index) => (
+          <li>
+            <button onClick={() => handlePaginationChange(currentPage - 1)} disabled={currentPage === 1}>Poprzednia</button>
+          </li>
+          {Array.from({ length: Math.ceil(searchResults.length / itemsPerPage) }).map((_, index) => (
             <li key={index} className={currentPage === index + 1 ? 'active' : ''}>
-              <button onClick={() => handlePaginationChange(index + 1)}>{index + 1}</button>
+              <button
+                onClick={() => handlePaginationChange(index + 1)}
+                disabled={currentPage === index + 1}
+              >
+                {index + 1}
+              </button>
             </li>
           ))}
+          <li>
+            <button onClick={() => handlePaginationChange(currentPage + 1)} disabled={currentPage === Math.ceil(searchResults.length / itemsPerPage)}>Następna</button>
+          </li>
         </ul>
       )}
     </div>

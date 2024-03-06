@@ -1,30 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const PatientList = ({ patients, onAddButtonClick, deletePatient, editPatient }) => {
+const PatientList = ({ patients, onAddButtonClick, deletePatient, editPatient, resetPage }) => {
   const [searchText, setSearchText] = useState('');
   const [searchBy, setSearchBy] = useState('firstName');
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5); // Możesz dostosować ilość elementów na stronie
+  const [itemsPerPage] = useState(10);
+  const [searchResults, setSearchResults] = useState([]);
+
+  useEffect(() => {
+    if (resetPage) {
+        setCurrentPage(1);
+    }
+}, [resetPage]);
+
+useEffect(() => {
+  const filteredResults = patients.filter((patient) => {
+    const value = String(patient[searchBy] || '').toLowerCase();
+    return value.includes(searchText.toLowerCase());
+  });
+
+  const newTotalPages = Math.ceil(filteredResults.length / itemsPerPage);
+  setSearchResults(filteredResults);
+  setCurrentPage(prevPage => {
+    if (prevPage > newTotalPages) { 
+      return 1; 
+    }
+    return prevPage;
+  });
+}, [searchText, searchBy, patients, itemsPerPage]);
+
+
 
   const handleSearchChange = (e) => {
     setSearchText(e.target.value);
-    setCurrentPage(1); // Resetujemy aktualną stronę po zmianie wyszukiwania
   };
 
   const handleSearchByChange = (e) => {
     setSearchBy(e.target.value);
   };
 
+  const handlePaginationChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const handleDeletePatient = (patientId) => {
+    deletePatient(patientId);
+    const newTotalPages = Math.ceil((searchResults.length - 1) / itemsPerPage);
+    setCurrentPage(prevPage => Math.min(prevPage, newTotalPages));
+  };
+
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = patients ? patients
-    .filter((patient) => {
-      const value = String(patient[searchBy] || '').toLowerCase();
-      return value.includes(searchText.toLowerCase());
-    })
-    .slice(indexOfFirstItem, indexOfLastItem) : [];
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const currentItems = searchResults.slice(indexOfFirstItem, indexOfLastItem);
 
   return (
     <div className="PatientList">
@@ -38,10 +65,10 @@ const PatientList = ({ patients, onAddButtonClick, deletePatient, editPatient })
           <option value="pesel">Pesel</option>
           <option value="phoneNumber">Nr. telefonu</option>
         </select>
-        <input 
-          type="text" 
-          placeholder="Wyszukaj..." 
-          value={searchText} 
+        <input
+          type="text"
+          placeholder="Wyszukaj..."
+          value={searchText}
           onChange={handleSearchChange}
         />
       </div>
@@ -67,21 +94,34 @@ const PatientList = ({ patients, onAddButtonClick, deletePatient, editPatient })
                 Edytuj
               </button>
             </p>
-            <p  className='buttonParagraph'>
-              <button onClick={() => deletePatient(patient.id)}>
+            <p className='buttonParagraph'>
+              <button onClick={() => handleDeletePatient(patient.id)}>
                 Usuń
               </button>
             </p>
           </li>
         ))}
       </ul>
-      <ul className="pagination">
-        {Array.from({ length: Math.ceil(patients.length / itemsPerPage) }).map((_, index) => (
-          <li key={index} className={currentPage === index + 1 ? 'active' : ''}>
-            <button onClick={() => paginate(index + 1)}>{index + 1}</button>
+      {searchResults.length > itemsPerPage && (
+        <ul className="pagination">
+          <li>
+            <button onClick={() => handlePaginationChange(currentPage - 1)} disabled={currentPage === 1}>Poprzednia</button>
           </li>
-        ))}
-      </ul>
+          {Array.from({ length: Math.ceil(searchResults.length / itemsPerPage) }).map((_, index) => (
+            <li key={index} className={currentPage === index + 1 ? 'active' : ''}>
+              <button
+                onClick={() => handlePaginationChange(index + 1)}
+                disabled={currentPage === index + 1}
+              >
+                {index + 1}
+              </button>
+            </li>
+          ))}
+          <li>
+            <button onClick={() => handlePaginationChange(currentPage + 1)} disabled={currentPage === Math.ceil(searchResults.length / itemsPerPage)}>Następna</button>
+          </li>
+        </ul>
+      )}
     </div>
   );
 };

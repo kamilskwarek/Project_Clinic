@@ -6,6 +6,8 @@ import { addEmployeeToAPI, deleteEmployeeFromAPI, editEmployeeInAPI } from './AP
 import { addJobPositionToAPI, deleteJobPositionFromAPI, editJobPositionInAPI } from './API/JobPositionAPI';
 import { addClinicToAPI, deleteClinicFromAPI, editClinicInAPI } from './API/ClinicAPI';
 import { addPatientToAPI, deletePatientFromAPI, editPatientInAPI } from './API/PatientAPI';
+import { addVisitToAPI, deleteVisitFromAPI, editVisitInAPI } from './API/VisitAPI';
+
 
 
 
@@ -15,12 +17,13 @@ const App = () => {
   const [isJobPositionFormVisible, setIsJobPositionFormVisible] = useState(false);
   const [isClinicFormVisible, setIsClinicFormVisible] = useState(false);
   const [isPatientFormVisible, setIsPatientFormVisible] = useState(false);
+  const [isVisitFormVisible, setIsVisitFormVisible] = useState(false);
 
 
 
 
   const menuItems = [
-    { id: 1, label: 'Strona główna' },
+    { id: 1, label: 'Harmonogram' },
     { id: 2, label: 'Pracownicy' },
     { id: 3, label: 'Pacjenci' },
     { id: 4, label: 'Stanowiska' },
@@ -36,6 +39,7 @@ const App = () => {
             {menuItems.map((item) => (
               <li key={item.id} onClick={() => {
                 setActiveMenuItem(item.id);
+                if (item.id === 1) setIsVisitFormVisible(false);
                 if (item.id === 2) setIsEmployeeFormVisible(false);
                 if (item.id === 3) setIsPatientFormVisible(false);
                 if (item.id === 4) setIsJobPositionFormVisible(false);
@@ -49,6 +53,13 @@ const App = () => {
         </div>
         <MainContent
           activeMenuItem={activeMenuItem}
+          //visit
+          isVisitFormVisible={isVisitFormVisible}
+          setIsVisitFormVisible={setIsVisitFormVisible}
+          addVisitToAPI={(newVisit, callback) => addVisitToAPI(newVisit, setIsVisitFormVisible, callback)}
+          deleteVisitFromAPI={deleteVisitFromAPI}
+          editVisitInAPI={editVisitInAPI}
+
           //employee
           isEmployeeFormVisible={isEmployeeFormVisible}
           setIsEmployeeFormVisible={setIsEmployeeFormVisible}

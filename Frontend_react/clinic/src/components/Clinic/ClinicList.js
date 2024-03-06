@@ -1,22 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const ClinicList = ({ clinics, onAddButtonClick, deleteClinic, editClinic }) => {
+const ClinicList = ({ clinics, onAddButtonClick, deleteClinic, editClinic, resetPage }) => {
   const [searchText, setSearchText] = useState('');
   const [searchBy, setSearchBy] = useState('name');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
+  const [searchResults, setSearchResults] = useState([]);
+
+  useEffect(() => {
+    if (resetPage) {
+      setCurrentPage(1);
+    }
+  }, [resetPage]);
+
+  useEffect(() => {
+    const filteredResults = clinics.filter((clinic) => {
+      const value = String(clinic[searchBy] || '').toLowerCase();
+      return value.includes(searchText.toLowerCase());
+    });
+
+    const newTotalPages = Math.ceil(filteredResults.length / itemsPerPage);
+    setSearchResults(filteredResults);
+    setCurrentPage(prevPage => {
+      if (prevPage > newTotalPages) { 
+        return 1; 
+      }
+      return prevPage;
+    });
+  }, [searchText, searchBy, clinics, itemsPerPage]);
+
 
   const handleSearchChange = (e) => {
     setSearchText(e.target.value);
-  };
+};
 
-  const handleSearchByChange = (e) => {
+const handleSearchByChange = (e) => {
     setSearchBy(e.target.value);
-  };
+};
 
+const handlePaginationChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+};
 
-  const filteredClinics = clinics ? clinics.filter((clinic) => {
-    const value = String(clinic[searchBy] || '').toLowerCase();
-    return value.includes(searchText.toLowerCase());
-  }) : [];
+const handleDeleteClinic = (clinicId) => {
+    deleteClinic(clinicId);
+    const newTotalPages = Math.ceil((searchResults.length - 1) / itemsPerPage);
+    setCurrentPage(prevPage => Math.min(prevPage, newTotalPages));
+};
+
+const indexOfLastItem = currentPage * itemsPerPage;
+const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+const currentItems = searchResults.slice(indexOfFirstItem, indexOfLastItem);
+
 
   return (
     <div className="ClinicList">
@@ -36,10 +71,10 @@ const ClinicList = ({ clinics, onAddButtonClick, deleteClinic, editClinic }) => 
 
 
         </select>
-        <input 
-          type="text" 
-          placeholder="Wyszukaj..." 
-          value={searchText} 
+        <input
+          type="text"
+          placeholder="Wyszukaj..."
+          value={searchText}
           onChange={handleSearchChange}
         />
       </div>
@@ -58,7 +93,7 @@ const ClinicList = ({ clinics, onAddButtonClick, deleteClinic, editClinic }) => 
           <p className='buttonParagraph'> Edytuj</p>
           <p className='buttonParagraph'>Usuń</p>
         </li>
-        {filteredClinics.map((clinic) => (
+        {currentItems.map((clinic) => (
           <li key={clinic.id} id={clinic.id}>
             <p className='idParagraph'>{clinic.id}</p>
             <p>{clinic.name}</p>
@@ -71,18 +106,38 @@ const ClinicList = ({ clinics, onAddButtonClick, deleteClinic, editClinic }) => 
             <p>{clinic.postalCode}</p>
 
             <p className='buttonParagraph'>
-                <button onClick={() => editClinic(clinic)}>
-                    Edytuj
-                </button>
+              <button onClick={() => editClinic(clinic)}>
+                Edytuj
+              </button>
             </p>
-            <p  className='buttonParagraph'>
-                <button onClick={() => deleteClinic(clinic.id)}>
-                    Usuń
-                </button>
+            <p className='buttonParagraph'>
+              <button onClick={() => handleDeleteClinic(clinic.id)}>
+                Usuń
+              </button>
             </p>
           </li>
         ))}
       </ul>
+      {searchResults.length > itemsPerPage && (
+                <ul className="pagination">
+                    <li>
+                        <button onClick={() => handlePaginationChange(currentPage - 1)} disabled={currentPage === 1}>Poprzednia</button>
+                    </li>
+                    {Array.from({ length: Math.ceil(searchResults.length / itemsPerPage) }).map((_, index) => (
+                        <li key={index} className={currentPage === index + 1 ? 'active' : ''}>
+                            <button
+                                onClick={() => handlePaginationChange(index + 1)}
+                                disabled={currentPage === index + 1}
+                            >
+                                {index + 1}
+                            </button>
+                        </li>
+                    ))}
+                    <li>
+                        <button onClick={() => handlePaginationChange(currentPage + 1)} disabled={currentPage === Math.ceil(searchResults.length / itemsPerPage)}>Następna</button>
+                    </li>
+                </ul>
+            )}
     </div>
   );
 };
