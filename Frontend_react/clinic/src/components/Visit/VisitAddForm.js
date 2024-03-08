@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const VisitAddForm = ({ addVisitHandler, editVisitHandler, visitToEdit }) => {
-  const [visitDate, setVisitDate] = useState(visitToEdit ? visitToEdit.visitDate : '');
+  const [visitDate, setVisitDate] = useState(visitToEdit ? visitToEdit.visitDate.slice(0, 10) : '');
   const [startTime, setStartTime] = useState(visitToEdit ? visitToEdit.startTime : '');
   const [endTime, setEndTime] = useState(visitToEdit ? visitToEdit.endTime : '');
   const [notes, setNotes] = useState(visitToEdit ? visitToEdit.notes : '');
@@ -153,7 +153,6 @@ const VisitAddForm = ({ addVisitHandler, editVisitHandler, visitToEdit }) => {
     <form className="VisitAddForm" onSubmit={handleSubmit}>
       <ul>
         <li><h3>Formularz wizyty</h3></li>
-        <br />
         <li>
           <label>Data:</label>
           <br />

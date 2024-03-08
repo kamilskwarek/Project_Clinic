@@ -11,7 +11,7 @@ import { addVisitToAPI, deleteVisitFromAPI, editVisitInAPI } from './API/VisitAP
 import axios from 'axios';
 
 const App = () => {
-  const [activeMenuItem, setActiveMenuItem] = useState(null);
+  const [activeMenuItem, setActiveMenuItem] = useState(1);
   const [isEmployeeFormVisible, setIsEmployeeFormVisible] = useState(false);
   const [isJobPositionFormVisible, setIsJobPositionFormVisible] = useState(false);
   const [isClinicFormVisible, setIsClinicFormVisible] = useState(false);
@@ -37,6 +37,7 @@ const App = () => {
           const user = response.data;
           setUser(user);
           setIsLoggedIn(true);
+          setActiveMenuItem(1);
         })
         .catch(error => {
           console.error('Wystąpił błąd podczas pobierania danych użytkownika', error.response.data);

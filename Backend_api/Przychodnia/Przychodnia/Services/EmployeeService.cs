@@ -239,13 +239,13 @@ namespace Przychodnia.Services
                 .FirstOrDefault(e => e.Email == dto.Email);
             if(employee is null)
             {
-                throw new Exception("Nie prawidłowy email");
+                return ("Nie prawidłowy email");
             }
 
             var result = _passwordHasher.VerifyHashedPassword(employee, employee.PasswordHash, dto.Password);
             if(result == PasswordVerificationResult.Failed)
             {
-                throw new Exception("Nie prawidłowe hasło");
+                return ("Nie prawidłowe hasło");
 
             }
 

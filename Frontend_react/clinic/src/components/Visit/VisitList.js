@@ -199,7 +199,7 @@ const VisitList = ({ visits, onAddButtonClick, deleteVisit, editVisit, resetPage
                     onChange={(e) => setSearchClinic(e.target.value)}
                 />
 
-                <button onClick={onAddButtonClick}>Dodaj Wizytę</button>
+                <button onClick={onAddButtonClick}>Dodaj wizytę</button>
             </div>
             <ul>
                 <li className='mainLi'>

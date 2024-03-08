@@ -18,11 +18,12 @@ const LoginForm = ({ onLogin }) => {
         const token = response.data; 
         localStorage.setItem('token', token); 
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        console.log(response)
   
        
         const userResponse = await axios.get('https://localhost:7137/api/employee/me');
         const user = userResponse.data;
-  
+        console.log(user)
         onLogin(user); 
 
         
