@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore.Update.Internal;
 using Przychodnia.Entities;
 using Przychodnia.Models.Patient;
@@ -19,6 +20,9 @@ namespace Przychodnia.Services
     {
         private readonly ClinicDbContext _dbContext;
         private readonly IMapper _mapper;
+        private readonly ILogger _logger;
+        private readonly IAuthorizationService _authorizationService;
+        private readonly IUserContextService _userContextService;
 
         public PatientService(ClinicDbContext dbContext, IMapper mapper)
         {

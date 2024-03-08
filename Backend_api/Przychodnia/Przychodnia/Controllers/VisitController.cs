@@ -1,11 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Przychodnia.Models.Visit;
 using Przychodnia.Services;
+using System.Data;
 
 
 namespace Przychodnia.Controllers
 {
     [Route("api/Visit")]
+    [Authorize(Roles = "Admin,Lekarz,Recepcjonista")]
+
+
     public class VisitController : ControllerBase
     {
         private readonly IVisitService _visitService;
@@ -35,7 +40,7 @@ namespace Przychodnia.Controllers
             }
             var id = _visitService.Create(dto);
 
-            return Created($"/api/visit/{id}", null);
+            return Created($"/api/visit/{id}", new { id = id });
         }
 
         [HttpPut("{id}")]

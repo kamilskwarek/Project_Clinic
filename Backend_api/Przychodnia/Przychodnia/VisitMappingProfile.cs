@@ -18,7 +18,9 @@ namespace Przychodnia
 
             CreateMap<Visit, VisitDto>()
                 .ForMember(dest => dest.EmployeeId, opt => opt.MapFrom(src => src.EmployeeId))
-                .ForMember(dest => dest.PatientId, opt => opt.MapFrom(src => src.PatientId));
+                .ForMember(dest => dest.PatientId, opt => opt.MapFrom(src => src.PatientId))
+                .ForMember(dest => dest.ClinicId, opt => opt.MapFrom(src => src.ClinicId));
+            
         }
     }
 }

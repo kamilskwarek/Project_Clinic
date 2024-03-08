@@ -62,18 +62,73 @@ const PatientAddForm = ({ addPatientHandler, editPatientHandler, patientToEdit }
 
   const handleSubmit = (e) => {
     e.preventDefault();
+  
+    // Walidacja dla strony 1
+    if (page === 1) {
+      if (!formDataPage1.firstName.trim()) {
+        alert("Imię jest wymagane!");
+        return;
+      }
+  
+      if (!formDataPage1.lastName.trim()) {
+        alert("Nazwisko jest wymagane!");
+        return;
+      }
+  
+      if (!/^\d{11}$/.test(formDataPage1.pesel)) {
+        alert("PESEL musi składać się z 11 cyfr!");
+        return;
+      }
+  
+      if (!formDataPage1.birthDate) {
+        alert("Data urodzenia jest wymagana!");
+        return;
+      }
+  
+      if (!formDataPage1.phoneNumber.trim() || !/^\d+-?\d+$/.test(formDataPage1.phoneNumber)) {
+        alert("Numer telefonu jest wymagany i musi zawierać tylko cyfry i opcjonalnie znak '-'!");
+        return;
+      }
+  
+      if (!formDataPage1.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formDataPage1.email)) {
+        alert("Nieprawidłowy format adresu email!");
+        return;
+      }
+  
+      if (!formDataPage1.city.trim()) {
+        alert("Miasto jest wymagane!");
+        return;
+      }
+  
+      if (!formDataPage1.street.trim()) {
+        alert("Ulica jest wymagana!");
+        return;
+      }
+  
+      if (!formDataPage1.apartmentNumber.trim()) {
+        alert("Numer domu jest wymagany!");
+        return;
+      }
+  
+      if (!formDataPage1.postalCode.trim()) {
+        alert("Kod pocztowy jest wymagany!");
+        return;
+      }
+    }
+  
     const patientData = {
       ...formDataPage1,
       ...formDataPage2,
       ...formDataPage3,
     };
-
+  
     if (patientToEdit) {
       editPatientHandler(patientData, patientToEdit.id);
     } else {
       addPatientHandler(patientData);
     }
   };
+
 
 
 

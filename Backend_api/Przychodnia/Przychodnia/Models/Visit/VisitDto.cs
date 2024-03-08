@@ -11,5 +11,7 @@
 
         public int EmployeeId { get; set; }
         public int PatientId { get; set; }
+
+        public int ClinicId { get; set; }
     }
 }

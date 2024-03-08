@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Przychodnia.Entities
 {
@@ -71,7 +72,15 @@ namespace Przychodnia.Entities
                 .Property(e => e.PhoneNumber)
                 .HasMaxLength(14)
                 .IsRequired();
-            
+            modelBuilder.Entity<Employee>()
+               .Property(e => e.Email)
+               .HasMaxLength(50)
+               .IsRequired();
+            modelBuilder.Entity<Employee>()
+              .Property(e => e.PasswordHash)
+              .HasMaxLength(255)
+              .IsRequired();
+
 
             //JobPosition
             modelBuilder.Entity<JobPosition>()
@@ -280,6 +289,11 @@ namespace Przychodnia.Entities
             modelBuilder.Entity<Visit>()
                 .Property(p => p.Notes)
                 .HasMaxLength(500);
+            modelBuilder.Entity<Visit>()
+                .HasOne(v => v.Employee)
+                .WithMany()
+                .HasForeignKey(v => v.EmployeeId)
+                .OnDelete(DeleteBehavior.Restrict);
 
 
 

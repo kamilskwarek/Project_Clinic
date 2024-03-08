@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Przychodnia.Models.Employee;
 using Przychodnia.Services;
+using System.Data;
 
 namespace Przychodnia.Controllers
 {
@@ -9,13 +11,27 @@ namespace Przychodnia.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeService _employeeService;
-     
-        public EmployeeController(IEmployeeService employeeService)
+        private readonly IUserContextService _userContextService;
+
+        public EmployeeController(IEmployeeService employeeService, IUserContextService userContextService)
         {
             _employeeService = employeeService;
+            _userContextService = userContextService;
         }
 
+        [AllowAnonymous]
+        [HttpPost("login")]
+        public ActionResult Login([FromBody]LoginDto dto)
+        {
+            string token = _employeeService.GenerateJwt(dto);
+            return Ok(token);
+        }
+
+
+
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
+
         public IActionResult Delete([FromRoute] int id)
         {
             var isDeleted = _employeeService.Delete(id);
@@ -27,6 +43,8 @@ namespace Przychodnia.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
+
         public ActionResult Create([FromBody]CreateEmployeeDto dto)
         {
             if (!ModelState.IsValid)
@@ -40,6 +58,8 @@ namespace Przychodnia.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
+
         public ActionResult Update([FromBody] UpdateEmployeeDto? dto, [FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -56,16 +76,9 @@ namespace Przychodnia.Controllers
 
         }
 
-        [HttpGet]
-        public ActionResult<IEnumerable<EmployeeDto>> GetAll()
-        {
-            var employeeDtos = _employeeService.GetAll();
-
-            return Ok(employeeDtos);
-        }
-
-
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin,Lekarz,Recepcjonista")]
+
         public ActionResult<EmployeeDto> Get([FromRoute] int id)
         {
             var employee = _employeeService.GetByIdWithDetails(id);
@@ -73,9 +86,43 @@ namespace Przychodnia.Controllers
             {
                 return NotFound();
             }
-
-
             return Ok(employee);
         }
+        [HttpGet]
+        [Authorize(Roles = "Admin,Lekarz,Recepcjonista")]
+
+        public ActionResult<IEnumerable<EmployeeDto>> GetAll()
+        {
+            var employeeDtos = _employeeService.GetAll();
+
+            return Ok(employeeDtos);
+        }
+
+        [HttpGet("me")]
+
+        [AllowAnonymous]
+        public ActionResult<EmployeeDto> GetCurrentUser()
+        {
+          
+            var userId = _userContextService.GetUserId;
+
+            if (!userId.HasValue)
+            {
+                return Unauthorized();
+            }
+
+         
+            var user = _employeeService.GetById(userId.Value);
+
+          
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+          
+            return Ok(user);
+        }
+
     }
 }

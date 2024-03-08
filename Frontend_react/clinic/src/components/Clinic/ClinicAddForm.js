@@ -16,15 +16,19 @@ const ClinicAddForm = ({ addClinicHandler, editClinicHandler, clinicToEdit}) => 
   const handleSubmit = (e) => {
     e.preventDefault();
     const clinicData = {
-        name,
-        description,
-        contactEmail,
-        contactNumber,
-        city,
-        street,
-        buildingNumber,
-        postalCode
+      name,
+      description,
+      contactEmail,
+      contactNumber,
+      city,
+      street,
+      buildingNumber,
+      postalCode
     };
+
+    if (!isFormValid()) {
+      return;
+    }
 
     if (clinicToEdit) {
       editClinicHandler(clinicData, clinicToEdit.id);
@@ -41,6 +45,30 @@ const ClinicAddForm = ({ addClinicHandler, editClinicHandler, clinicToEdit}) => 
     setStreet('');
     setBuildingNumber('');
     setPostalCode('');
+  };
+
+  const isFormValid = () => {
+ 
+    if (!name.trim()) {
+      alert("Nazwa placówki jest wymagana!");
+      return false;
+    }
+
+   
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(contactEmail)) {
+      alert("Nieprawidłowy format adresu email!");
+      return false;
+    }
+
+  
+    if (!/^\d+-?\d+$/.test(contactNumber)) {
+      alert("Numer telefonu musi zawierać tylko cyfry i znak '-'!");
+      return false;
+    }
+
+
+    return true;
   };
 
   return (

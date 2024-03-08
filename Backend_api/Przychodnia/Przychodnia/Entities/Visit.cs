@@ -15,6 +15,9 @@
         public int PatientId { get; set; }
         public virtual Patient Patient { get; set; }
 
+        public int ClinicId { get; set; }
+        public virtual Clinic Clinic { get; set; }
+
 
         public virtual SickLeave SickLeave { get; set; }
 

@@ -265,3 +265,7 @@ D:\Project_Clinic\Backend_api\Przychodnia\Przychodnia\obj\Debug\net6.0\refint\Pr
 D:\Project_Clinic\Backend_api\Przychodnia\Przychodnia\obj\Debug\net6.0\Przychodnia.pdb
 D:\Project_Clinic\Backend_api\Przychodnia\Przychodnia\obj\Debug\net6.0\Przychodnia.genruntimeconfig.cache
 D:\Project_Clinic\Backend_api\Przychodnia\Przychodnia\obj\Debug\net6.0\ref\Przychodnia.dll
+D:\Project_Clinic\Backend_api\Przychodnia\Przychodnia\bin\Debug\net6.0\FluentValidation.dll
+D:\Project_Clinic\Backend_api\Przychodnia\Przychodnia\bin\Debug\net6.0\FluentValidation.AspNetCore.dll
+D:\Project_Clinic\Backend_api\Przychodnia\Przychodnia\bin\Debug\net6.0\FluentValidation.DependencyInjectionExtensions.dll
+D:\Project_Clinic\Backend_api\Przychodnia\Przychodnia\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

@@ -1,8 +1,14 @@
 export const loadEmployees = async () => {
   try {
-    const response = await fetch('https://localhost:7137/api/employee');
+    const token = localStorage.getItem('token');
+    const response = await fetch('https://localhost:7137/api/employee', {
+      headers: {
+        'Authorization': `Bearer ${token}` 
+        
+      }
+    });
     if (!response.ok) {
-      throw new Error('Failed to fetch employees');
+      throw new Error('Failed to fetch employee');
     }
 
     const data = await response.json();
@@ -21,10 +27,14 @@ export const updateEmployeeInAPI = async (
   setEmployeeToEdit
 ) => {
   try {
+    const token = localStorage.getItem('token');
+
     const response = await fetch(`https://localhost:7137/api/employee/${employeeId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` 
+
       },
       body: JSON.stringify(updatedEmployee),
     });
@@ -45,10 +55,14 @@ export const updateEmployeeInAPI = async (
 
 export const addEmployeeToAPI = async (newEmployee, setIsEmployeeFormVisible, refreshEmployees) => {
   try {
-    const response = await fetch('https://localhost:7137/api/employee/', {  
+    const token = localStorage.getItem('token');
+
+    const response = await fetch('https://localhost:7137/api/employee', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` 
+
       },
       body: JSON.stringify(newEmployee),
     });
@@ -64,7 +78,7 @@ export const addEmployeeToAPI = async (newEmployee, setIsEmployeeFormVisible, re
   }
   await refreshEmployees();
 
-  setIsEmployeeFormVisible(false); 
+  setIsEmployeeFormVisible(false);
 };
 
 
@@ -72,30 +86,38 @@ export const addEmployeeToAPI = async (newEmployee, setIsEmployeeFormVisible, re
 
 export const deleteEmployeeFromAPI = async (employeeId) => {
   try {
-      const response = await fetch(`https://localhost:7137/api/employee/${employeeId}`, {
-          method: 'DELETE',
-          headers: {
-              'Content-Type': 'application/json',
-          },
-      });
+    const token = localStorage.getItem('token');
 
-      if (!response.ok) {
-          throw new Error('Failed to delete employee');
-      }
+    const response = await fetch(`https://localhost:7137/api/employee/${employeeId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` 
 
-      console.log('Usunięto pracownika:', employeeId);
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to delete employee');
+    }
+
+    console.log('Usunięto pracownika:', employeeId);
   } catch (error) {
-      console.error('Błąd przy usuwaniu pracownika:', error.message);
+    console.error('Błąd przy usuwaniu pracownika:', error.message);
   }
 };
 
 
 export const editEmployeeInAPI = async (editedEmployee) => {
   try {
+    const token = localStorage.getItem('token');
+
     const response = await fetch(`https:///localhost:7137/api/employee/${editedEmployee.id}`, {
-      method: 'PUT', 
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` 
+
       },
       body: JSON.stringify(editedEmployee),
     });
@@ -106,7 +128,7 @@ export const editEmployeeInAPI = async (editedEmployee) => {
 
     const responseData = await response.json();
     console.log('Edytowano pracownika:', responseData);
-   
+
 
   } catch (error) {
     console.error('Błąd przy edycji pracownika:', error.message);

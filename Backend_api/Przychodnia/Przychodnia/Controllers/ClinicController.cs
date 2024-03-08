@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Przychodnia.Entities;
 using Przychodnia.Models.Clinic;
@@ -20,6 +21,8 @@ namespace Przychodnia.Controllers
         
         
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
+
         public ActionResult Delete([FromRoute] int id)
         {
             var isDeleted = _clinicService.Delete(id);
@@ -33,6 +36,8 @@ namespace Przychodnia.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
+
         public ActionResult CreateClinic([FromBody]CreateClinicDto dto)
         {
             if (!ModelState.IsValid)
@@ -45,6 +50,8 @@ namespace Przychodnia.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
+
         public ActionResult Update([FromBody]UpdateClinicDto? dto, [FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -62,6 +69,8 @@ namespace Przychodnia.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,Lekarz,Recepcjonista")]
+
         public ActionResult<IEnumerable<ClinicDto>> GetAll()
         {
             var clinicsDtos = _clinicService.GetAll();
@@ -71,6 +80,8 @@ namespace Przychodnia.Controllers
 
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin,Lekarz,Recepcjonista")]
+
         public ActionResult<ClinicDto> Get([FromRoute] int id)
         {
             var clinic = _clinicService.GetById(id);

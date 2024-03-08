@@ -7,18 +7,29 @@ const VisitAddForm = ({ addVisitHandler, editVisitHandler, visitToEdit }) => {
   const [notes, setNotes] = useState(visitToEdit ? visitToEdit.notes : '');
   const [selectedPatientId, setSelectedPatientId] = useState(visitToEdit ? visitToEdit.patientId : '');
   const [selectedEmployeeId, setSelectedEmployeeId] = useState(visitToEdit ? visitToEdit.employeeId : '');
+  const [selectedClinicId, setSelectedClinicId] = useState(visitToEdit ? visitToEdit.clinicId : '');
+
   const [patients, setPatients] = useState([]);
   const [employees, setEmployees] = useState([]);
+  const [clinics, setClinics] = useState([]);
   const [filteredPatients, setFilteredPatients] = useState([]);
   const [filteredEmployees, setFilteredEmployees] = useState([]);
+  const [filteredClinics, setFilteredClinics] = useState([]);
+
   const [patientInputFocused, setPatientInputFocused] = useState(false);
   const [employeeInputFocused, setEmployeeInputFocused] = useState(false);
-
+  const [clinicInputFocused, setClinicInputFocused] = useState(false);
 
   useEffect(() => {
     const fetchPatients = async () => {
       try {
-        const response = await fetch('https://localhost:7137/api/patient');
+        const token = localStorage.getItem('token');
+
+        const response = await fetch('https://localhost:7137/api/patient', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
         const data = await response.json();
         setPatients(data);
         setFilteredPatients(data);
@@ -29,7 +40,13 @@ const VisitAddForm = ({ addVisitHandler, editVisitHandler, visitToEdit }) => {
 
     const fetchEmployees = async () => {
       try {
-        const response = await fetch('https://localhost:7137/api/employee');
+        const token = localStorage.getItem('token');
+
+        const response = await fetch('https://localhost:7137/api/employee', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
         const data = await response.json();
         setEmployees(data);
         setFilteredEmployees(data);
@@ -38,8 +55,26 @@ const VisitAddForm = ({ addVisitHandler, editVisitHandler, visitToEdit }) => {
       }
     };
 
+    const fetchClinics = async () => {
+      try {
+        const token = localStorage.getItem('token');
+
+        const response = await fetch('https://localhost:7137/api/clinic', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        const data = await response.json();
+        setClinics(data);
+        setFilteredClinics(data);
+      } catch (error) {
+        console.error('Błąd podczas pobierania danych placówek:', error);
+      }
+    };
+
     fetchPatients();
     fetchEmployees();
+    fetchClinics();
   }, []);
 
   const handlePatientChange = (e) => {
@@ -48,6 +83,10 @@ const VisitAddForm = ({ addVisitHandler, editVisitHandler, visitToEdit }) => {
 
   const handleEmployeeChange = (e) => {
     setSelectedEmployeeId(e.target.value);
+  };
+
+  const handleClinicChange = (e) => {
+    setSelectedClinicId(e.target.value);
   };
 
   const filterPatients = (searchText) => {
@@ -66,6 +105,14 @@ const VisitAddForm = ({ addVisitHandler, editVisitHandler, visitToEdit }) => {
     setFilteredEmployees(filtered);
   };
 
+  const filterClinics = (searchText) => {
+    const filtered = clinics.filter(clinic => {
+      const clinicName = `${clinic.name}`.toLowerCase();
+      return clinicName.includes(searchText.toLowerCase());
+    });
+    setFilteredClinics(filtered);
+  };
+
   const handleTimeChange = (e, setTime) => {
     const { value } = e.target;
     const [hours, minutes] = value.split(':');
@@ -82,10 +129,9 @@ const VisitAddForm = ({ addVisitHandler, editVisitHandler, visitToEdit }) => {
       endTime,
       notes,
       patientId: selectedPatientId,
-      employeeId: selectedEmployeeId
+      employeeId: selectedEmployeeId,
+      clinicId: selectedClinicId
     };
-
-
 
     if (visitToEdit) {
       editVisitHandler(visitData, visitToEdit.id);
@@ -100,19 +146,20 @@ const VisitAddForm = ({ addVisitHandler, editVisitHandler, visitToEdit }) => {
     setNotes('');
     setSelectedPatientId('');
     setSelectedEmployeeId('');
+    setSelectedClinicId('');
   };
 
   return (
     <form className="VisitAddForm" onSubmit={handleSubmit}>
       <ul>
         <li><h3>Formularz wizyty</h3></li>
-        <br></br>
+        <br />
         <li>
           <label>Data:</label>
           <br />
           <input
             type="date"
-            value={visitDate ? new Date(visitDate).toLocaleDateString('en-CA') : ''}
+            value={visitDate}
             onChange={(e) => setVisitDate(e.target.value)}
             required
           />
@@ -139,12 +186,11 @@ const VisitAddForm = ({ addVisitHandler, editVisitHandler, visitToEdit }) => {
             required
           />
         </li>
-
         <li>
           <label>Pacjent:</label>
           <br />
           <input
-            class="patientInput"
+            className="patientInput"
             onFocus={() => setPatientInputFocused(true)}
             onBlur={() => setPatientInputFocused(false)}
             type="text"
@@ -152,22 +198,27 @@ const VisitAddForm = ({ addVisitHandler, editVisitHandler, visitToEdit }) => {
             onChange={(e) => filterPatients(e.target.value)}
           />
           <br />
-          <select size={patientInputFocused ? 3 : 1} className={patientInputFocused ? 'expanded' : ''} value={selectedPatientId} onChange={handlePatientChange} required>
+          <select
+            size={patientInputFocused ? 3 : 1}
+            className={patientInputFocused ? 'expanded' : ''}
+            value={selectedPatientId}
+            onChange={handlePatientChange}
+            required
+          >
             <option value="">Wybierz pacjenta</option>
             {filteredPatients.map(patient => (
-              <option key={patient.id} value={patient.id}>{`${patient.firstName} ${patient.lastName}`}</option>
+              <option key={patient.id} value={patient.id}>
+                {`${patient.firstName} ${patient.lastName}`}
+              </option>
             ))}
           </select>
         </li>
-
         <br />
         <li>
           <label>Lekarz:</label>
           <br />
-
-
           <input
-            class="employeeInput"
+            className="employeeInput"
             type="text"
             onFocus={() => setEmployeeInputFocused(true)}
             onBlur={() => setEmployeeInputFocused(false)}
@@ -175,23 +226,56 @@ const VisitAddForm = ({ addVisitHandler, editVisitHandler, visitToEdit }) => {
             onChange={(e) => filterEmployees(e.target.value)}
           />
           <br />
-
-          <select size={employeeInputFocused ? 3 : 1} className={employeeInputFocused ? 'expanded' : ''} value={selectedEmployeeId} onChange={handleEmployeeChange} required>
+          <select
+            size={employeeInputFocused ? 3 : 1}
+            className={employeeInputFocused ? 'expanded' : ''}
+            value={selectedEmployeeId}
+            onChange={handleEmployeeChange}
+            required
+          >
             <option value="">Wybierz lekarza</option>
             {filteredEmployees.map(employee => (
-              <option key={employee.id} value={employee.id}>{`${employee.firstName} ${employee.lastName}`}</option>
+              <option key={employee.id} value={employee.id}>
+                {`${employee.firstName} ${employee.lastName}`}
+              </option>
             ))}
           </select>
-
-
-
         </li>
-        <br/>
+        <br />
+        <li>
+          <label>Placówka:</label>
+          <br />
+          <input
+            className="clinicInput"
+            type="text"
+            onFocus={() => setClinicInputFocused(true)}
+            onBlur={() => setClinicInputFocused(false)}
+            placeholder="Wyszukaj placówkę..."
+            onChange={(e) => filterClinics(e.target.value)}
+          />
+          <br />
+          <select
+            size={clinicInputFocused ? 3 : 1}
+            className={clinicInputFocused ? 'expanded' : ''}
+            value={selectedClinicId}
+            onChange={handleClinicChange}
+            required
+          >
+            <option value="">Wybierz placówkę</option>
+            {filteredClinics.map(clinic => (
+              <option key={clinic.id} value={clinic.id}>
+                {`${clinic.name}`}
+              </option>
+            ))}
+          </select>
+        </li>
+        <br />
         <li>
           <label>Notatka:</label>
-          <br></br>
-
-          <textarea rows="4" cols="50"
+          <br />
+          <textarea
+            rows="4"
+            cols="50"
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
           ></textarea>

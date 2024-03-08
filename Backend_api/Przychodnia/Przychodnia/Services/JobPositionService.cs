@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
-
 using Przychodnia.Entities;
 using Przychodnia.Models.JobPosition;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace Przychodnia.Services
 {
@@ -11,6 +12,7 @@ namespace Przychodnia.Services
         JobPositionDto GetById(int id);
         IEnumerable<JobPositionDto> GetAll();
         int Create(CreateJobPositionDto dto);
+        JobPosition GetJobPositionByName(string jobName);
         bool Delete(int id);
         bool Update(int od, UpdateJobPositionDto dto);
     
@@ -20,6 +22,9 @@ namespace Przychodnia.Services
     {
         private readonly ClinicDbContext _dbContext;
         private readonly IMapper _mapper;
+        private readonly ILogger _logger;
+        private readonly IAuthorizationService _authorizationService;
+        private readonly IUserContextService _userContextService;
 
 
         public JobPositionService(ClinicDbContext dbContext, IMapper mapper)
@@ -66,6 +71,11 @@ namespace Przychodnia.Services
             _dbContext.jobPositions.Add(jobPosition);
             _dbContext.SaveChanges();
             return jobPosition.Id;
+        }
+
+        public JobPosition GetJobPositionByName(string jobName)
+        {
+            return _dbContext.jobPositions.FirstOrDefault(c => c.JobTitle == jobName);
         }
 
         public bool Update(int id, UpdateJobPositionDto dto)

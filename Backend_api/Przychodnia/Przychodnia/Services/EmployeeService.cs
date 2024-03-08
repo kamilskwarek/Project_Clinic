@@ -1,11 +1,20 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Przychodnia.Entities;
 using Przychodnia.Models.Employee;
+using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
+using System.Text;
 
 namespace Przychodnia.Services
 {
-    public interface IEmployeeService { 
+    public interface IEmployeeService
+    {
         EmployeeDto GetById(int id);
         IEnumerable<EmployeeDto> GetAll();
         int Create(CreateEmployeeDto dto);
@@ -13,6 +22,7 @@ namespace Przychodnia.Services
         EmployeeDto GetByIdWithDetails(int id);
         bool Update(int id, UpdateEmployeeDto dto);
         int GetEmployeeIdByLastName(string lastName);
+        string GenerateJwt(LoginDto dto);
     }
 
     public class EmployeeService : IEmployeeService
@@ -20,13 +30,20 @@ namespace Przychodnia.Services
         private readonly ClinicDbContext _dbContext;
         private readonly IMapper _mapper;
         private readonly IClinicService _clinicService;
+        private readonly IJobPositionService _jobPositionService;
+        private readonly IPasswordHasher<Employee> _passwordHasher;
+        private readonly AuthenticationSettings _authenticationSettings;
+        private readonly IUserContextService _userContextService;
 
-
-        public EmployeeService(ClinicDbContext dbContext, IMapper mapper, IClinicService clinicService)
+        public EmployeeService(ClinicDbContext dbContext, IMapper mapper, IClinicService clinicService, IJobPositionService jobPositionService, IPasswordHasher<Employee> passwordHasher, AuthenticationSettings authenticationSettings, IUserContextService userContextService) 
         {
             _dbContext = dbContext;
             _mapper = mapper;
             _clinicService = clinicService;
+            _jobPositionService = jobPositionService;
+            _passwordHasher = passwordHasher;
+            _authenticationSettings = authenticationSettings;
+            _userContextService = userContextService;
         }
 
         public bool Delete(int id)
@@ -40,14 +57,40 @@ namespace Przychodnia.Services
             return true;
         }
 
+        public string GetEmployeeJobTitle()
+        {
+            var userId = _userContextService.GetUserId;
+            if (userId.HasValue)
+            {
+                var employee = _dbContext.Employee
+                    .Include(e => e.JobPosition)
+                    .FirstOrDefault(e => e.Id == userId.Value);
+
+                if (employee != null)
+                {
+                    return employee.JobPosition.JobTitle;
+                }
+            }
+            return null;
+        }
+
+
         public EmployeeDto GetById(int id)
         {
             var employee = _dbContext
                 .Employee
+                .Include(e => e.JobPosition)
+                .Include(e => e.Clinic)
                 .FirstOrDefault (c => c.Id == id);
+
             if (employee == null) return null;
+
+
             var result = _mapper.Map<EmployeeDto>(employee);
-   
+
+            result.JobPosition = employee.JobPosition?.JobTitle;
+            result.Clinic = employee.Clinic?.Name;
+
             return result;
         }
 
@@ -62,9 +105,8 @@ namespace Przychodnia.Services
 
             var result = _mapper.Map<EmployeeDto>(employee);
 
-            // Przypisz nazwy JobPosition i Clinic do EmployeeDto
-            result.JobPosition = employee.JobPosition?.JobTitle; // Sprawdzamy, czy JobPosition nie jest null
-            result.Clinic = employee.Clinic?.Name; // Sprawdzamy, czy Clinic nie jest null
+            result.JobPosition = employee.JobPosition?.JobTitle;
+            result.Clinic = employee.Clinic?.Name;
 
             return result;
         }
@@ -79,7 +121,7 @@ namespace Przychodnia.Services
 
             var employeeDtos = _mapper.Map<List<EmployeeDto>>(employees);
 
-            // Przypisz nazwy JobPosition i Clinic do każdego EmployeeDto w liście
+           
             foreach (var employeeDto in employeeDtos)
             {
                 employeeDto.JobPosition = employees.FirstOrDefault(e => e.Id == employeeDto.Id)?.JobPosition?.JobTitle;
@@ -96,14 +138,30 @@ namespace Przychodnia.Services
             if (clinic == null)
             {
                 throw new Exception("Nieprawidłowa nazwa kliniki.");
+            
+            }
+
+            var jobPosition = _jobPositionService.GetJobPositionByName(dto.JobTitle);
+            if (jobPosition == null)
+            {
+                throw new Exception("Nieprawidłowa nazwa stanowiska.");
             }
 
             var employee = _mapper.Map<Employee>(dto);
             employee.Clinic = clinic;
+            employee.JobPosition = jobPosition;
+
+
+            var hashedPassword = _passwordHasher.HashPassword(employee, dto.PasswordHash);
+
+            employee.PasswordHash = hashedPassword;
+
+
             _dbContext.Employee .Add(employee);
             _dbContext.SaveChanges ();
             return employee.Id;
         }
+
 
         public bool Update(int id, UpdateEmployeeDto dto)
         {
@@ -131,6 +189,14 @@ namespace Przychodnia.Services
             if (!string.IsNullOrEmpty(dto.PhoneNumber))
             {
                 employee.PhoneNumber = dto.PhoneNumber;
+            }
+            if (!string.IsNullOrEmpty(dto.Email))
+            {
+                employee.Email = dto.Email;
+            }
+            if (!string.IsNullOrEmpty(dto.PasswordHash))
+            {
+                employee.PasswordHash = dto.PasswordHash;
             }
 
             if (!string.IsNullOrEmpty(dto.JobTitle))
@@ -162,6 +228,45 @@ namespace Przychodnia.Services
         {
             var employee = _dbContext.Employee.FirstOrDefault(e => e.LastName == lastName);
             return employee != null ? employee.Id : -1;
+        }
+
+        public string GenerateJwt(LoginDto dto)
+        {
+
+
+            var employee = _dbContext.Employee
+                .Include(e => e.JobPosition)
+                .FirstOrDefault(e => e.Email == dto.Email);
+            if(employee is null)
+            {
+                throw new Exception("Nie prawidłowy email");
+            }
+
+            var result = _passwordHasher.VerifyHashedPassword(employee, employee.PasswordHash, dto.Password);
+            if(result == PasswordVerificationResult.Failed)
+            {
+                throw new Exception("Nie prawidłowe hasło");
+
+            }
+
+            var claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.NameIdentifier, employee.Id.ToString() ),
+                new Claim(ClaimTypes.Name, $"{employee.FirstName} {employee.LastName}" ),
+                new Claim(ClaimTypes.Role, $"{employee.JobPosition.JobTitle}" ),
+
+
+            };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authenticationSettings.JwtKey));
+            var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var expires = DateTime.Now.AddDays(_authenticationSettings.JwtExpireDays);
+
+            var token = new JwtSecurityToken(_authenticationSettings.JwtIssuer, _authenticationSettings.JwtIssuer, claims, expires: expires, signingCredentials: cred);
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            return tokenHandler.WriteToken(token);
         }
 
     }

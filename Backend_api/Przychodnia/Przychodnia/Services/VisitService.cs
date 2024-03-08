@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Przychodnia.Entities;
 using Przychodnia.Models.Visit;
@@ -22,13 +23,18 @@ namespace Przychodnia.Services
         private readonly ClinicDbContext _dbcontext;
         private readonly IEmployeeService _employeeService;
         private readonly IPatientService _patientService;
+        private readonly IClinicService _clinicalService;
+        private readonly ILogger _logger;
+        private readonly IAuthorizationService _authorizationService;
+        private readonly IUserContextService _userContextService;
 
-        public VisitService(ClinicDbContext dbContext, IMapper mapper, IEmployeeService employeService, IPatientService patientService)
+        public VisitService(ClinicDbContext dbContext, IMapper mapper, IEmployeeService employeService, IPatientService patientService, IClinicService clinicalService)
         {
             _dbcontext = dbContext;
             _mapper = mapper;
             _employeeService = employeService;
             _patientService = patientService;
+            _clinicalService = clinicalService;
         }
 
         public bool Delete(int id)
@@ -58,12 +64,14 @@ namespace Przychodnia.Services
             var visit = _dbcontext.Visits
                 .Include(e =>e.Employee)
                 .Include(e =>e.Patient)
+                .Include(e =>e.Clinic)
                 .FirstOrDefault(v => v.Id == id);
             if (visit == null) return null;
             var result = _mapper.Map<VisitDto>(visit);
 
             result.EmployeeId = visit.EmployeeId;
             result.PatientId = visit.PatientId;
+            result.ClinicId = visit.ClinicId;
 
             return result;
         }
@@ -74,6 +82,7 @@ namespace Przychodnia.Services
             var visits = _dbcontext.Visits
                 .Include(e => e.Employee)
                 .Include(e => e.Patient)
+                .Include(e => e.Clinic)
                 .ToList();
 
             var visitDtos = _mapper.Map<List<VisitDto>>(visits);
@@ -82,6 +91,7 @@ namespace Przychodnia.Services
             {
                 visitDto.EmployeeId = visitDto.EmployeeId;
                 visitDto.PatientId = visitDto.PatientId;
+                visitDto.ClinicId = visitDto.ClinicId;
             }
             return visitDtos;
         }
@@ -91,9 +101,11 @@ namespace Przychodnia.Services
 
             var employeeId = dto.EmployeeId;
             var patientId = dto.PatientId;
+            var clinicId = dto.ClinicId;
 
             var employee = _dbcontext.Employee.FirstOrDefault(e => e.Id == dto.EmployeeId);
-            var patient = _dbcontext.Patient.FirstOrDefault(p => p.Id == dto.PatientId);
+            var patient = _dbcontext.Patient.FirstOrDefault(p => p.Id == dto.PatientId); 
+            var clinic = _dbcontext.Clinic.FirstOrDefault(c => c.Id == dto.ClinicId);
 
             if(employee == null)
             {
@@ -105,9 +117,15 @@ namespace Przychodnia.Services
                 throw new Exception("Nieprawidłowe nazwisko pacjenta");
             }
 
+            if (clinic == null)
+            {
+                throw new Exception("Nieprawidłowa nawza placówki");
+            }
+
             var visit = _mapper.Map<Visit>(dto);
             visit.EmployeeId = employeeId;
             visit.PatientId = patientId;
+            visit.ClinicId=clinicId;
             _dbcontext.Visits.Add(visit);
             _dbcontext.SaveChanges();
 
@@ -161,6 +179,16 @@ namespace Przychodnia.Services
                     throw new Exception("Nieprawidłowy pacjent");
                 }
                 visit.PatientId = dto.PatientId;
+            }
+
+            if (dto.ClinicId != 0)
+            {
+                var clinic = _dbcontext.Clinic.FirstOrDefault(p => p.Id == dto.ClinicId);
+                if (clinic == null)
+                {
+                    throw new Exception("Nieprawidłowy placówka");
+                }
+                visit.ClinicId = dto.ClinicId;
             }
             _dbcontext.SaveChanges();
             return true;

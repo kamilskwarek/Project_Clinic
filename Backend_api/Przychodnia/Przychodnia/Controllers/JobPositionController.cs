@@ -1,11 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Przychodnia.Models.JobPosition;
 using Przychodnia.Services;
+using System.Data;
 
 namespace Przychodnia.Controllers
 {
 
     [Route("api/jobposition")]
+    [Authorize(Roles = "Admin")]
+
     public class JobPositionController : ControllerBase
     {
         private readonly IJobPositionService _jobPositionService;

@@ -2,10 +2,15 @@
 using Microsoft.AspNetCore.Mvc;
 using Przychodnia.Services;
 using Przychodnia.Models.Patient;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Przychodnia.Controllers
 {
     [Route("api/patient")]
+    [Authorize(Roles = "Admin,Lekarz,Recepcjonista")]
+
+
     public class PatientController : ControllerBase
     {
         private readonly IPatientService _patientService;
@@ -57,6 +62,8 @@ namespace Przychodnia.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,Lekarz,Recepcjonista")]
+
         public ActionResult<IEnumerable<PatientDto>> GetAll()
         {
             var patientDtos = _patientService.GetAll();
@@ -64,6 +71,8 @@ namespace Przychodnia.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin,Lekarz,Recepcjonista")]
+
         public ActionResult<PatientDto> Get([FromRoute] int id)
         {
             var patient = _patientService.GetById(id);

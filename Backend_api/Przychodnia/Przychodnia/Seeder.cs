@@ -1,4 +1,5 @@
-﻿using Przychodnia.Entities;
+﻿using Microsoft.AspNetCore.Identity;
+using Przychodnia.Entities;
 using System;
 using System.Linq;
 
@@ -7,10 +8,12 @@ namespace Przychodnia
     public class Seeder
     {
         private readonly ClinicDbContext _dbcontext;
+        private readonly IPasswordHasher<Employee> _passwordHasher;
 
-        public Seeder(ClinicDbContext dbContext)
+        public Seeder(ClinicDbContext dbContext, IPasswordHasher<Employee> passwordHasher)
         {
             _dbcontext = dbContext;
+            _passwordHasher = passwordHasher;
         }
 
         public void Seed()
@@ -33,22 +36,22 @@ namespace Przychodnia
                         var employees = GetEmployees();
                         _dbcontext.Employee.AddRange(employees);
                         _dbcontext.SaveChanges();
+
+                        if (!_dbcontext.Patient.Any())
+                        {
+                            var patients = GetPatients();
+                            _dbcontext.Patient.AddRange(patients);
+                            _dbcontext.SaveChanges();
+                            if (!_dbcontext.Visits.Any())
+                            {
+                                var visits = GetVisits();
+                                _dbcontext.Visits.AddRange(visits);
+                                _dbcontext.SaveChanges();
+                            }
+                        }
+                     
                     }
-                }
-
-                if (!_dbcontext.Patient.Any())
-                {
-                    var patients = GetPatients();
-                    _dbcontext.Patient.AddRange(patients);
-                    _dbcontext.SaveChanges();
-                }
-
-                if (!_dbcontext.Visits.Any()) 
-                {
-                    var visits = GetVisits();
-                    _dbcontext.Visits.AddRange(visits);
-                    _dbcontext.SaveChanges();
-                }
+                }          
             }
         }
 
@@ -178,13 +181,13 @@ namespace Przychodnia
             {
                 new JobPosition
                 {
-                    JobTitle = "Lekarz",
-                    JobDescription = "Opis stanowiska lekarza"
+                    JobTitle = "Admin",
+                    JobDescription = "Opis stanowiska administratora"
                 },
                 new JobPosition
                 {
-                    JobTitle = "Pielęgniarka",
-                    JobDescription = "Opis stanowiska pielęgniarki"
+                    JobTitle = "Lekarz",
+                    JobDescription = "Opis stanowiska lekarza"
                 },
                 new JobPosition
                 {
@@ -197,124 +200,94 @@ namespace Przychodnia
 
         }
 
-        private IEnumerable<Visit> GetVisits()
-        {
-            var visits = new List<Visit>();
-
-            // Dzisiejsza data
-            DateTime startDate = DateTime.Today;
-            // Liczba dni do przodu
-            int daysToAdd = 3;
-
-            for (int i = 0; i < 5; i++)
-            {
-                var visit = new Visit
-                {
-                    VisitDate = startDate.AddDays(i % daysToAdd),
-                    StartTime = new TimeSpan(10 + i, 0, 0), // Przykładowy czas rozpoczęcia, zmieniony dla różnorodności
-                    EndTime = new TimeSpan(11 + i, 0, 0), // Przykładowy czas zakończenia, zmieniony dla różnorodności
-                    Notes = $"Visit {i + 1} notes",
-                    EmployeeId = (i % 3) + 1, // Przykładowy ID pracownika, zmieniony dla różnorodności
-                    PatientId = (i % 3) + 1 // Przykładowy ID pacjenta, zmieniony dla różnorodności
-                };
-                visits.Add(visit);
-            }
-
-            return visits;
-        }
 
 
 
         private IEnumerable<Employee> GetEmployees()
         {
             var employees = new List<Employee>
-            {
-                new Employee
-                {
-                    FirstName = "Jan",
-                    LastName = "Kowalski",
-                    Pesel = "1234567890",
-                    PhoneNumber = "123-456-789",
-                    JobPositionId = 1,
-                    ClinicId = 1
-                },
-                new Employee
-                {
-                    FirstName = "Anna",
-                    LastName = "Nowak",
-                    Pesel = "0987654321",
-                    PhoneNumber = "987-654-321",
-                    JobPositionId = 2,
-                    ClinicId = 2
-                },
-                new Employee
-                {
-                    FirstName = "Piotr",
-                    LastName = "Kowalczyk",
-                    Pesel = "5678901234",
-                    PhoneNumber = "555-555-555",
-                    JobPositionId = 2,
-                    ClinicId = 3
-                },
-                new Employee
-                {
-                    FirstName = "Jan",
-                    LastName = "Kowalski",
-                    Pesel = "1234567890",
-                    PhoneNumber = "123-456-789",
-                    JobPositionId = 1,
-                    ClinicId = 1
-                },
-                new Employee
-                {
-                    FirstName = "Anna",
-                    LastName = "Nowak",
-                    Pesel = "0987654321",
-                    PhoneNumber = "987-654-321",
-                    JobPositionId = 2,
-                    ClinicId = 2
-                },
-                new Employee
-                {
-                    FirstName = "Piotr",
-                    LastName = "Kowalczyk",
-                    Pesel = "5678901234",
-                    PhoneNumber = "555-555-555",
-                    JobPositionId = 2,
-                    ClinicId = 3
-                },
-                new Employee
-                {
-                    FirstName = "Jan",
-                    LastName = "Kowalski",
-                    Pesel = "1234567890",
-                    PhoneNumber = "123-456-789",
-                    JobPositionId = 1,
-                    ClinicId = 1
-                },
-                new Employee
-                {
-                    FirstName = "Anna",
-                    LastName = "Nowak",
-                    Pesel = "0987654321",
-                    PhoneNumber = "987-654-321",
-                    JobPositionId = 2,
-                    ClinicId = 2
-                },
-                new Employee
-                {
-                    FirstName = "Piotr",
-                    LastName = "Kowalczyk",
-                    Pesel = "5678901234",
-                    PhoneNumber = "555-555-555",
-                    JobPositionId = 2,
-                    ClinicId = 3
-                },
-
-            };
+    {
+        new Employee
+        {
+            FirstName = "Jan",
+            LastName = "Kowalski",
+            Pesel = "1234567890",
+            PhoneNumber = "123-456-789",
+            Email = "test@test.pl",
+            PasswordHash = _passwordHasher.HashPassword(null, "qwertyuiop"),
+            JobPositionId = 1,
+            ClinicId = 1
+        },
+        new Employee
+        {
+            FirstName = "Anna",
+            LastName = "Nowak",
+            Pesel = "0987654321",
+            PhoneNumber = "987-654-321",
+            Email = "test@test1.pl",
+            PasswordHash = _passwordHasher.HashPassword(null, "qwertyuiop"),
+            JobPositionId = 2,
+            ClinicId = 2
+        },
+        new Employee
+        {
+            FirstName = "Piotr",
+            LastName = "Kowalczyk",
+            Pesel = "5678901234",
+            PhoneNumber = "555-555-555",
+            Email = "test@test2.pl",
+            PasswordHash = _passwordHasher.HashPassword(null, "qwertyuiop"),
+            JobPositionId = 2,
+            ClinicId = 3
+        }
+    };
 
             return employees;
         }
+
+        private IEnumerable<Visit> GetVisits()
+        {
+            DateTime startDate = DateTime.Today;
+
+            var visits = new List<Visit>
+            {
+                new Visit
+                {
+
+                    VisitDate = startDate,
+                    StartTime = new TimeSpan(10, 0, 0),
+                    EndTime = new TimeSpan(11, 0, 0),
+                    Notes = "Visti 1 note",
+                    EmployeeId = 1,
+                    PatientId = 1,
+                    ClinicId = 1,
+                },
+                new Visit
+                {
+
+                    VisitDate = startDate,
+                    StartTime = new TimeSpan(11, 0, 0),
+                    EndTime = new TimeSpan(12, 0, 0),
+                    Notes = "Visti 1 note",
+                    EmployeeId = 1,
+                    PatientId = 2,
+                    ClinicId = 1,
+                },
+                  new Visit
+                {
+
+                    VisitDate = startDate,
+                    StartTime = new TimeSpan(12, 0, 0),
+                    EndTime = new TimeSpan(13, 0, 0),
+                    Notes = "Visti 1 note",
+                    EmployeeId = 1,
+                    PatientId = 3,
+                    ClinicId = 1,
+                }
+            };
+            return visits;
+        }
+
         private IEnumerable<Clinic> GetClinic()
         {
             var clinics = new List<Clinic>

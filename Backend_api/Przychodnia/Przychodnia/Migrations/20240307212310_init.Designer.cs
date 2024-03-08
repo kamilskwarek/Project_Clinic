@@ -12,7 +12,7 @@ using Przychodnia.Entities;
 namespace Przychodnia.Migrations
 {
     [DbContext(typeof(ClinicDbContext))]
-    [Migration("20240306212257_init")]
+    [Migration("20240307212310_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -89,6 +89,11 @@ namespace Przychodnia.Migrations
                     b.Property<int>("ClinicId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -101,6 +106,11 @@ namespace Przychodnia.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Pesel")
                         .IsRequired()
@@ -434,6 +444,9 @@ namespace Przychodnia.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("ClinicId")
+                        .HasColumnType("int");
+
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
@@ -455,6 +468,8 @@ namespace Przychodnia.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClinicId");
 
                     b.HasIndex("EmployeeId");
 
@@ -536,10 +551,16 @@ namespace Przychodnia.Migrations
 
             modelBuilder.Entity("Przychodnia.Entities.Visit", b =>
                 {
+                    b.HasOne("Przychodnia.Entities.Clinic", "Clinic")
+                        .WithMany()
+                        .HasForeignKey("ClinicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Przychodnia.Entities.Employee", "Employee")
                         .WithMany()
                         .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Przychodnia.Entities.Patient", "Patient")
@@ -547,6 +568,8 @@ namespace Przychodnia.Migrations
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Clinic");
 
                     b.Navigation("Employee");
 

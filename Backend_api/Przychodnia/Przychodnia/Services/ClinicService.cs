@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Przychodnia.Entities;
 using Przychodnia.Models.Clinic;
+
 
 namespace Przychodnia.Services
 {
@@ -20,12 +22,17 @@ namespace Przychodnia.Services
     {
         private readonly ClinicDbContext _dbcontext;
         private readonly IMapper _mapper;
+        private readonly ILogger _logger;
+        private readonly IAuthorizationService _authorizationService;
+        private readonly IUserContextService _userContextService;
 
-
-        public ClinicService(ClinicDbContext dbcontext, IMapper mapper)
+        public ClinicService(ClinicDbContext dbcontext, IMapper mapper, ILogger<ClinicService> logger, IAuthorizationService authorizationService, IUserContextService userContextService)
         {
             _dbcontext = dbcontext;
             _mapper = mapper;
+            _logger = logger;
+            _authorizationService = authorizationService;
+            _userContextService = userContextService;
         }
 
         public bool Delete(int id)
@@ -35,6 +42,8 @@ namespace Przychodnia.Services
                .FirstOrDefault(c => c.Id == id);
 
             if (clinic == null) return false;
+
+
             _dbcontext.Clinic .Remove(clinic);
             _dbcontext.SaveChanges();
             return true;

@@ -1,6 +1,12 @@
 export const loadJobPositions = async () => {
   try {
-    const response = await fetch('https://localhost:7137/api/jobposition');
+    const token = localStorage.getItem('token');
+    const response = await fetch('https://localhost:7137/api/jobposition', {
+      headers: {
+        'Authorization': `Bearer ${token}` 
+        
+      }
+    });
     if (!response.ok) {
       throw new Error('Failed to fetch jobposition');
     }
@@ -23,10 +29,14 @@ export const updateJobPositionInAPI = async (
   setJobPositionToEdit
 ) => {
   try {
+    const token = localStorage.getItem('token');
+
     const response = await fetch(`https://localhost:7137/api/jobposition/${JobPositionId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` 
+
       },
       body: JSON.stringify(updatedJobPosition),
     });
@@ -46,10 +56,12 @@ export const updateJobPositionInAPI = async (
 
 export const addJobPositionToAPI = async (newJobPosition, setIsJobPositionFormvisible, refreshJobPositions) => {
   try {
+    const token = localStorage.getItem('token');
     const response = await fetch('https://localhost:7137/api/jobposition/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` 
       },
       body: JSON.stringify(newJobPosition),
     });
@@ -67,12 +79,17 @@ export const addJobPositionToAPI = async (newJobPosition, setIsJobPositionFormvi
   setIsJobPositionFormvisible(false);
 };
 
+
 export const deleteJobPositionFromAPI = async (jobPositionId) => {
   try {
+    const token = localStorage.getItem('token');
+
     const response = await fetch(`https://localhost:7137/api/jobposition/${jobPositionId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` 
+
       },
     });
 
@@ -88,10 +105,14 @@ export const deleteJobPositionFromAPI = async (jobPositionId) => {
 
 export const editJobPositionInAPI = async (editedJobPosition) => {
   try {
+    const token = localStorage.getItem('token');
+
     const response = await fetch(`https://localhost:7137/api/jobposition/${editedJobPosition.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` 
+
       },
       body: JSON.stringify(editedJobPosition),
     });

@@ -18,6 +18,9 @@ namespace Przychodnia.Models.Employee
         [Phone]
         public string? PhoneNumber { get; set; }
 
+        public string Email { get; set; }
+        public string PasswordHash { get; set; }
+
         public string? JobTitle { get; set; }
         public string? ClinicName { get; set; }
     }

@@ -130,6 +130,8 @@ namespace Przychodnia.Migrations
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Pesel = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     JobPositionId = table.Column<int>(type: "int", nullable: false),
                     ClinicId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -182,17 +184,24 @@ namespace Przychodnia.Migrations
                     EndTime = table.Column<TimeSpan>(type: "time", nullable: false),
                     Notes = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     EmployeeId = table.Column<int>(type: "int", nullable: false),
-                    PatientId = table.Column<int>(type: "int", nullable: false)
+                    PatientId = table.Column<int>(type: "int", nullable: false),
+                    ClinicId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Visits", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Visits_Clinic_ClinicId",
+                        column: x => x.ClinicId,
+                        principalTable: "Clinic",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Visits_Employee_EmployeeId",
                         column: x => x.EmployeeId,
                         principalTable: "Employee",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Visits_Patient_PatientId",
                         column: x => x.PatientId,
@@ -298,6 +307,11 @@ namespace Przychodnia.Migrations
                 name: "IX_Vaccinations_PatientId",
                 table: "Vaccinations",
                 column: "PatientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Visits_ClinicId",
+                table: "Visits",
+                column: "ClinicId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Visits_EmployeeId",

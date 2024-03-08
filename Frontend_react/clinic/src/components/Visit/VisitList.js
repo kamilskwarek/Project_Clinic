@@ -8,9 +8,11 @@ const VisitList = ({ visits, onAddButtonClick, deleteVisit, editVisit, resetPage
     const [searchResults, setSearchResults] = useState([]);
     const [patients, setPatients] = useState([]);
     const [employees, setEmployees] = useState([]);
+    const [clinics, setClinics] = useState([]);
     const [searchDate, setSearchDate] = useState(getTodayDate());
     const [searchPatient, setSearchPatient] = useState('');
     const [searchEmployee, setSearchEmployee] = useState('');
+    const [searchClinic, setSearchClinic] = useState('');
 
     useEffect(() => {
         if (resetPage) {
@@ -21,7 +23,14 @@ const VisitList = ({ visits, onAddButtonClick, deleteVisit, editVisit, resetPage
     useEffect(() => {
         const fetchPatients = async () => {
             try {
-                const response = await fetch('https://localhost:7137/api/patient');
+                const token = localStorage.getItem('token');
+
+                const response = await fetch('https://localhost:7137/api/patient', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+
+                    }
+                });
                 const data = await response.json();
                 setPatients(data);
             } catch (error) {
@@ -31,7 +40,14 @@ const VisitList = ({ visits, onAddButtonClick, deleteVisit, editVisit, resetPage
 
         const fetchEmployees = async () => {
             try {
-                const response = await fetch('https://localhost:7137/api/employee');
+                const token = localStorage.getItem('token');
+
+                const response = await fetch('https://localhost:7137/api/employee', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+
+                    }
+                });
                 const data = await response.json();
                 setEmployees(data);
             } catch (error) {
@@ -39,8 +55,26 @@ const VisitList = ({ visits, onAddButtonClick, deleteVisit, editVisit, resetPage
             }
         };
 
+        const fetchClinics = async () => {
+            try {
+                const token = localStorage.getItem('token');
+
+                const response = await fetch('https://localhost:7137/api/clinic', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+
+                    }
+                });
+                const data = await response.json();
+                setClinics(data);
+            } catch (error) {
+                console.error('Błąd podczas pobierania danych placówki:', error);
+            }
+        };
+
         fetchPatients();
         fetchEmployees();
+        fetchClinics();
     }, []);
 
 
@@ -54,15 +88,23 @@ const VisitList = ({ visits, onAddButtonClick, deleteVisit, editVisit, resetPage
         return employee ? `${employee.firstName} ${employee.lastName}` : '';
     }, [employees]);
 
+    const getClinicName = useCallback((clinicId) => {
+        const clinic = clinics.find(clinic => clinic.id === clinicId);
+        return clinic ? `${clinic.name}` : '';
+    }, [clinics]);
+
+
     useEffect(() => {
         const filteredResults = visits.filter((visit) => {
             const value = String(visit[searchBy] || '').toLowerCase();
             const patientName = getPatientName(visit.patientId).toLowerCase();
             const employeeName = getEmployeeName(visit.employeeId).toLowerCase();
+            const clinicName = getClinicName(visit.clinicId).toLocaleLowerCase();
             return value.includes(searchText.toLowerCase()) &&
                 value.includes(searchDate.toLowerCase()) &&
                 patientName.includes(searchPatient.toLowerCase()) &&
-                employeeName.includes(searchEmployee.toLowerCase());
+                employeeName.includes(searchEmployee.toLowerCase()) &&
+                clinicName.includes(searchClinic.toLocaleLowerCase());
         });
 
         const newTotalPages = Math.ceil(filteredResults.length / itemsPerPage);
@@ -73,7 +115,7 @@ const VisitList = ({ visits, onAddButtonClick, deleteVisit, editVisit, resetPage
             }
             return prevPage;
         });
-    }, [searchText, searchBy, visits, itemsPerPage, searchDate, searchPatient, searchEmployee, getEmployeeName, getPatientName]);
+    }, [searchText, searchBy, visits, itemsPerPage, searchDate, searchPatient, searchEmployee, searchClinic, getEmployeeName, getPatientName, getClinicName]);
 
     const handlePaginationChange = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -115,13 +157,13 @@ const VisitList = ({ visits, onAddButtonClick, deleteVisit, editVisit, resetPage
     return (
         <div className="VisitList">
             <h2>Harmonogram Wizyt:</h2>
-  
+
 
 
             <label>Wyszukaj </label>
-            
+
             <div className="searchBar">
-            <label>Data </label>
+                <label>Data </label>
 
                 <input
                     type="date"
@@ -130,7 +172,7 @@ const VisitList = ({ visits, onAddButtonClick, deleteVisit, editVisit, resetPage
                     onChange={(e) => setSearchDate(e.target.value)}
                 />
 
-            <label>Pacjent </label>
+                <label>Pacjent </label>
 
                 <input
                     type="text"
@@ -139,7 +181,7 @@ const VisitList = ({ visits, onAddButtonClick, deleteVisit, editVisit, resetPage
                     onChange={(e) => setSearchPatient(e.target.value)}
                 />
 
-            <label>Lekarz </label>
+                <label>Lekarz </label>
 
                 <input
                     type="text"
@@ -148,16 +190,26 @@ const VisitList = ({ visits, onAddButtonClick, deleteVisit, editVisit, resetPage
                     onChange={(e) => setSearchEmployee(e.target.value)}
                 />
 
-<button onClick={onAddButtonClick}>Dodaj Wizytę</button>
+                <label>Placówka </label>
+
+                <input
+                    type="text"
+                    placeholder="Placówka"
+                    value={searchClinic}
+                    onChange={(e) => setSearchClinic(e.target.value)}
+                />
+
+                <button onClick={onAddButtonClick}>Dodaj Wizytę</button>
             </div>
             <ul>
                 <li className='mainLi'>
                     <p className='idParagraph'>Id</p>
                     <p>Data wizyty</p>
-                    <p className='timeParagraph'>Godzina rozpoczęcia</p>
-                    <p className='timeParagraph'>Godzina zakończenia</p>
-                    <p>Pacjent</p>
-                    <p>Pracownik</p>
+                    <p className='timeParagraph'>Start</p>
+                    <p className='timeParagraph'>koniec</p>
+                    <p className='firstLastName'>Pacjent</p>
+                    <p className='firstLastName'>Pracownik</p>
+                    <p className='firstLastName'>Placówka</p>
                     <p className='buttonParagraph'> Edytuj</p>
                     <p className='buttonParagraph'>Usuń</p>
                 </li>
@@ -167,8 +219,10 @@ const VisitList = ({ visits, onAddButtonClick, deleteVisit, editVisit, resetPage
                         <p>{formatVisitDate(visit.visitDate)}</p>
                         <p className='timeParagraph'>{formatTime(visit.startTime)}</p>
                         <p className='timeParagraph'>{formatTime(visit.endTime)}</p>
-                        <p>{getPatientName(visit.patientId)}</p>
-                        <p>{getEmployeeName(visit.employeeId)}</p>
+                        <p className='firstLastName'>{getPatientName(visit.patientId)}</p>
+                        <p className='firstLastName'>{getEmployeeName(visit.employeeId)}</p>
+                        <p className='firstLastName'>{getClinicName(visit.clinicId)}</p>
+
                         <p className='buttonParagraph'>
                             <button onClick={() => editVisit(visit)}>
                                 Edytuj
